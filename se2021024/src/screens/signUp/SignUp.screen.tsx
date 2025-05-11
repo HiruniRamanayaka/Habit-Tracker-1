@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {View, Text, Button, TextInput, Alert} from 'react-native';
 
 const SignUpScreen = ({navigation}:any) => {
@@ -16,9 +17,16 @@ const SignUpScreen = ({navigation}:any) => {
       Alert.alert('Passwords do not match');
       return;
     }
-    console.log('User signed up with:', { userName, email, password });
-    // Navigate to LogIn screen after sign-up
-    navigation.replace('LogIn');
+    
+    try {
+      await AsyncStorage.setItem('user', JSON.stringify({userName, email, password}));
+      Alert.alert('Sign up succeful! Please log in.');
+      console.log('User signed up with:', { userName, email, password });
+      // Navigate to LogIn screen after sign-up
+      navigation.replace('LogIn');
+    } catch (error) {
+      Alert.alert('Sign up unsuccessful');
+    }
   };
 
   return (
