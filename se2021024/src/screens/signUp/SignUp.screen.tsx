@@ -9,10 +9,12 @@ const SignUpScreen = ({navigation}:any) => {
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
 
   const handleSignUp = async () => {
+    // check all fields filled or not
     if(!userName || !email || !password || !confirmPassword) {
       Alert.alert('Please fill all fields');
       return;
     }
+    // check password and confirmed password matched
     if(password !== confirmPassword) {
       Alert.alert('Passwords do not match');
       return;

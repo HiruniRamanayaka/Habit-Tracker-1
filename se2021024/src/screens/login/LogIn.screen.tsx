@@ -23,6 +23,7 @@ const LogInScreen = ({navigation}:any) => {
         email: userData.email, 
         password: userData.password 
       });
+      // Navigate to Home screen after log in
       navigation.replace('Home');
     }else{
       Alert.alert('Invalid Credentials.')

@@ -9,11 +9,14 @@ const App = () => {
   const [user, setUser] = useState<UserType>(null);
   const [initialRoute, setInitialRoute] = useState<string | null>(null);
 
+   // This will be called when the splash screen has finished loading
   const handleSplashReady = async () => {
       try{
+        // Read user info and logged-in status from AsyncStorage
         const storedUser = await AsyncStorage.getItem('user');
         const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
 
+        // If user is logged in, go to Home
         if(storedUser && isLoggedIn === 'true') {
           const loggedUser = JSON.parse(storedUser);
           setUser({ 
@@ -23,8 +26,10 @@ const App = () => {
           });
           setInitialRoute('Home');
         }else if(storedUser) {
+          // If user exists but isn't logged in, go to Login page
           setInitialRoute('LogIn');
         }else{
+          // If no user found, navigate to the SignUp screen
           setInitialRoute('SignUp');
         }
       }catch(error){
