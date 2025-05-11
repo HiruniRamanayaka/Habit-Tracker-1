@@ -17,6 +17,7 @@ const LogInScreen = ({navigation}:any) => {
 
     const userData = JSON.parse(stored);
     if (userData.email === email && userData.password === password) {
+      await AsyncStorage.setItem('isLoggedIn', 'true');
       setUser({ 
         userName: userData.userName, 
         email: userData.email, 
