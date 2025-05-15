@@ -90,7 +90,6 @@ const SignUpScreen = ({navigation}:any) => {
             keyboardType="default"
           />
           <TouchableOpacity 
-           
             onPress={() => setShowPassword(!showPassword)}
           >
             <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color={COLORS.iconColor} />
@@ -109,7 +108,6 @@ const SignUpScreen = ({navigation}:any) => {
             keyboardType="default"
           />
           <TouchableOpacity
-           
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             <Ionicons name={showConfirmPassword ? "eye" : "eye-off"} size={20} color={COLORS.iconColor} />
