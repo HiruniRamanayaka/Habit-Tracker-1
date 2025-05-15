@@ -1,12 +1,19 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {View, Text, Button, TextInput, Alert} from 'react-native';
+import {View, Text, TextInput, Alert, Image, TouchableOpacity} from 'react-native';
+import styles from './SignUpScreen.style'
+import { COLORS } from '../../constants/Theme';
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SignUpScreen = ({navigation}:any) => {
-  const [userName, setUserName] = React.useState<string>('');
-  const [email, setEmail] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
-  const [confirmPassword, setConfirmPassword] = React.useState<string>('');
+  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const handleSignUp = async () => {
     // check all fields filled or not
@@ -32,47 +39,109 @@ const SignUpScreen = ({navigation}:any) => {
   };
 
   return (
-    <View>
-        <Text>Sign Up</Text>
-        <TextInput
-          placeholder="username"
-          value={userName}
-          onChangeText={setUserName}
-          keyboardType="default"
-        />
-        <TextInput
-          placeholder="email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-        <TextInput
-          placeholder="password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-          keyboardType="default"
-        />
-        <TextInput
-          placeholder="confirm password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry={true}
-          keyboardType="default"
-        />
-        <Button
-          title="Sign Up"
-          onPress={handleSignUp}
-        />
-        <Text
-          onPress={() => {
-            navigation.navigate('LogIn');
-          }}
-        >
-          Already have an account? Log In
-        </Text>
+    <LinearGradient 
+        colors={['#000000', '#4B0082']} 
+        style={styles.gradientBackground}
+    >
+    <View style={styles.container}>
+      <Image
+        source={require('../../assests/logo-white.png')}
+        style={styles.backgroundImage}
+      />
+      <View style={styles.inputContainer}>
+        <View style={styles.inputTitles}>
+          <Text style={styles.title}>Sign Up</Text>
+          <Text style={styles.subTitle}>Enter your info to keep it going!</Text>
+        </View>
+        
+        <View style={styles.inputWrapper}>
+          <FontAwesome name="user" size={20} color={COLORS.iconColor} />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            placeholderTextColor={COLORS.gray}
+            value={userName}
+            onChangeText={setUserName}
+            keyboardType="default"
+          />
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <FontAwesome name="envelope" size={20} color={COLORS.iconColor} />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor={COLORS.gray}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <FontAwesome name="lock" size={20} color={COLORS.iconColor} />
+          <TextInput
+            style={[styles.input, { flex: 1 }]}
+            placeholder="Password"
+            placeholderTextColor={COLORS.gray}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword} 
+            keyboardType="default"
+          />
+          <TouchableOpacity 
+           
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color={COLORS.iconColor} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <FontAwesome name="lock" size={20} color="#4B0082" />
+          <TextInput
+            style={[styles.input, { flex: 1 }]}
+            placeholder="Confirm password"
+            placeholderTextColor={COLORS.gray}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={!showConfirmPassword}
+            keyboardType="default"
+          />
+          <TouchableOpacity
+           
+            onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            <Ionicons name={showConfirmPassword ? "eye" : "eye-off"} size={20} color={COLORS.iconColor} />
+          </TouchableOpacity>
+        </View>
+        
+        {/* button */}
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+
+        {/* link to login */}
+        <View style={styles.linkText}>
+          <Text style={styles.text}>
+            Already have an account?
+          </Text>
+          <Text
+            style={styles.link}
+            onPress={() => {
+              navigation.navigate('LogIn');
+            }}
+          >
+          Log In
+          </Text>
+        </View>
+        
+      </View>
     </View>
+    </LinearGradient>
   );
 };
 
 export default SignUpScreen;
+
+

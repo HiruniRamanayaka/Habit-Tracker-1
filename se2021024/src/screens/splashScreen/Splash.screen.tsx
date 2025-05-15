@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, Image } from 'react-native';
 
 const SplashScreen = ({ onReady }: { onReady: () => void }) => {
   useEffect(() => {
@@ -11,6 +11,11 @@ const SplashScreen = ({ onReady }: { onReady: () => void }) => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Image
+      source={require('../../assests/first.png')}
+      // style={styles.background}
+      resizeMode="cover"
+      />
       <ActivityIndicator size="large" />
       <Text>Loading...</Text>
     </View>
