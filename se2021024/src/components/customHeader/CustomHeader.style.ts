@@ -26,6 +26,30 @@ const styles = StyleSheet.create({
   iconButton: {
     padding: 8,
   },
+  modalBackground: {
+    marginTop: 40,
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  calendarContainer: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    width: '90%',
+    elevation: 10,
+  },
+  closeButton: {
+    marginTop: 10,
+    alignSelf: 'flex-end',
+    padding: 8,
+    backgroundColor: '#ddd',
+    borderRadius: 6,
+  },
+  closeText: {
+    fontWeight: '600',
+  },
 });
 
 export default styles;
