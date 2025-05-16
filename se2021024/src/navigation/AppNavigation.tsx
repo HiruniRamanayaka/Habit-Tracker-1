@@ -5,6 +5,8 @@ import LogInScreen from '../screens/login/LogIn.screen';
 import SignUpScreen from '../screens/signUp/SignUp.screen';
 import HomeScreen from '../screens/home/Home.screen';
 import { UserContext, UserType } from '../common/context/userContext';
+import CustomHeader from '../components/customHeader/CustomHeader';
+import AnotherScreen from '../screens/AnotherScreen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -13,10 +15,11 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerShown: true, // Show header in drawer screens
+        header: () => <CustomHeader />, // Custom header here screens
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Another" component={AnotherScreen} />
       {/* Add more screens here */}
     </Drawer.Navigator>
   );
