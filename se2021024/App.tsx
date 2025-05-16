@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
 import React, {useState, useEffect}  from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from './src/screens/splashScreen/Splash.screen';
@@ -24,7 +26,7 @@ const App = () => {
             email: loggedUser.email, 
             password: loggedUser.password 
           });
-          setInitialRoute('Home');
+          setInitialRoute('HomeDrawer');
         }else if(storedUser) {
           // If user exists but isn't logged in, go to Login page
           setInitialRoute('LogIn');

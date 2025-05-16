@@ -5,7 +5,6 @@ import LogoutButton from '../../components/buttons/logout/LogoutButton';
 import DeleteUserButton from '../../components/buttons/delete/DeleteUserButton';
 import styles from './HomeScreen.style';
 import LinearGradient from 'react-native-linear-gradient';
-import TopBar from '../../components/topBar/TopBar';
 
 const HomeScreen = ({ navigation }: any) => {
   const { user, setUser } = useContext(UserContext);
@@ -18,7 +17,6 @@ const HomeScreen = ({ navigation }: any) => {
         style={styles.gradientBackground}
       >
         <View>
-          <TopBar />
           <Text style={styles.main}>Welcome, {user?.userName}</Text>
           <LogoutButton navigation={navigation}/>
           <DeleteUserButton navigation={navigation}/>
