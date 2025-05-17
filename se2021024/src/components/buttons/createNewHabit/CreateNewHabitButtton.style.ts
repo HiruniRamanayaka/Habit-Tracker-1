@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     padding: 20,
     maxHeight: '80%',
     elevation: 10,
-    position: 'relative', // important for absolute close button
+    position: 'relative', 
   },
   closeButton: {
     position: 'absolute',

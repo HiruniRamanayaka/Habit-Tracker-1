@@ -8,7 +8,6 @@ import { Calendar } from 'react-native-calendars';
 const CustomHeader = () => {
     const navigation = useNavigation();
     const [calendarVisible, setCalendarVisible] = useState(false);
-    const today = new Date().toISOString().split('T')[0];
     
   return (
     <View style={styles.container}>
@@ -55,3 +54,4 @@ const CustomHeader = () => {
 export default CustomHeader;
 
 //npm install react-native-calendars - calendar
+//npm install moment   - to generate date strings

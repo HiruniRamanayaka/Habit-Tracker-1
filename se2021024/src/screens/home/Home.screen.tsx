@@ -6,6 +6,8 @@ import DeleteUserButton from '../../components/buttons/delete/DeleteUserButton';
 import styles from './HomeScreen.style';
 import LinearGradient from 'react-native-linear-gradient';
 import CreateNewHabitButton from '../../components/buttons/createNewHabit/CreateNewHabitButton';
+import { ScrollView } from 'react-native-gesture-handler';
+import HabitList from '../../components/habitList/HabitList';
 
 const HomeScreen = ({ navigation }: any) => {
   const { user, setUser } = useContext(UserContext);
@@ -21,8 +23,10 @@ const HomeScreen = ({ navigation }: any) => {
           <Text style={styles.main}>Welcome, {user?.userName}</Text>
           <LogoutButton navigation={navigation}/>
           <DeleteUserButton navigation={navigation}/>
-          
         </View>
+        <ScrollView>
+          <HabitList />
+        </ScrollView>
         <CreateNewHabitButton />
       </LinearGradient>
     </SafeAreaView>

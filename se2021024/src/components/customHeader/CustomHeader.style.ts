@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   modalBackground: {
-    marginTop: 40,
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'center',
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
     padding: 20,
     width: '90%',
     elevation: 10,
+    maxHeight: '80%', 
   },
   closeButton: {
     marginTop: 10,
