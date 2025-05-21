@@ -30,7 +30,7 @@ const HabitList = () => {
 
       {filteredHabits.length === 0 ? (
         <View >
-          <Image source={require('../../assests/logo.png')} />
+          <Image source={require('../../assests/no-habit.png')} />
           <Text >No habits for this day</Text>
         </View>
       ) : (
