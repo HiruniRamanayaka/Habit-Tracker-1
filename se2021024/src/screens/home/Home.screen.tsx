@@ -16,13 +16,13 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.screen}>
       <LinearGradient 
-        colors={['#ffffff', '#b0a0bd']} 
+        colors={['#f2f2f2', '#b0a0bd']} 
         style={styles.gradientBackground}
       >
         
-        <ScrollView>
+        
           <HabitList />
-        </ScrollView>
+        
         <CreateNewHabitButton />
       </LinearGradient>
     </SafeAreaView>

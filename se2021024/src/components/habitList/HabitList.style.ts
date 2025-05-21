@@ -20,8 +20,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#6B7280',
   },
+  habitListContainer: {
+    marginTop: 20,
+  },
   habitCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ffffff',
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,

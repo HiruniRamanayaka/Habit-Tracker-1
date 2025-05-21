@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { FlatList, Image, Text, View } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import styles from './HabitList.style';
 import DatePicker from '../datePicker/DatePicker';
@@ -22,28 +22,28 @@ const HabitList = () => {
             return false;
         }
     });
-
     
   return (
     <View style={styles.container}>
       <DatePicker onDateSelect={setSelectedDate} />
-
+      <View style={styles.habitListContainer}>
       {filteredHabits.length === 0 ? (
         <View style={styles.noHabitsContainer}>
           <Image source={require('../../assests/no-habit.png')} style={styles.noHabitsImage}/>
           <Text style={styles.noHabitsText}>No habits for this day</Text>
         </View>
       ) : (
-        filteredHabits.map((habit, index) => (
-          <View key={index} >
-            <Text style={styles.habitCard}>{habit.name}</Text>
-            {/* <Text style={styles.habitFrequency}>{habit.frequency}</Text>
-            {habit.frequency === 'weekly' && (
-              <Text style={styles.habitDays}>{`Days: ${habit.days.join(', ')}`}</Text>
-            )} */}
-          </View>
-        ))
+        <FlatList
+          data={filteredHabits}
+          keyExtractor={(habit, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.habitCard}>
+                <Text style={styles.habitName}>{item.name}</Text>
+            </View>
+          )}
+        />
       )}
+      </View>
     </View>
   );
 };
