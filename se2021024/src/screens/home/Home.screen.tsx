@@ -16,14 +16,10 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.screen}>
       <LinearGradient 
-        colors={['#ffffff', '#4B0082']} 
+        colors={['#ffffff', '#b0a0bd']} 
         style={styles.gradientBackground}
       >
-        <View>
-          <Text style={styles.main}>Welcome, {user?.userName}</Text>
-          <LogoutButton navigation={navigation}/>
-          <DeleteUserButton navigation={navigation}/>
-        </View>
+        
         <ScrollView>
           <HabitList />
         </ScrollView>

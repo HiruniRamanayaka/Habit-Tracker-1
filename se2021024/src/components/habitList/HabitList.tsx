@@ -25,22 +25,22 @@ const HabitList = () => {
 
     
   return (
-    <View >
+    <View style={styles.container}>
       <DatePicker onDateSelect={setSelectedDate} />
 
       {filteredHabits.length === 0 ? (
-        <View >
-          <Image source={require('../../assests/no-habit.png')} />
-          <Text >No habits for this day</Text>
+        <View style={styles.noHabitsContainer}>
+          <Image source={require('../../assests/no-habit.png')} style={styles.noHabitsImage}/>
+          <Text style={styles.noHabitsText}>No habits for this day</Text>
         </View>
       ) : (
         filteredHabits.map((habit, index) => (
           <View key={index} >
-            <Text >{habit.name}</Text>
-            <Text >{habit.frequency}</Text>
+            <Text style={styles.habitCard}>{habit.name}</Text>
+            {/* <Text style={styles.habitFrequency}>{habit.frequency}</Text>
             {habit.frequency === 'weekly' && (
-              <Text >{`Days: ${habit.days.join(', ')}`}</Text>
-            )}
+              <Text style={styles.habitDays}>{`Days: ${habit.days.join(', ')}`}</Text>
+            )} */}
           </View>
         ))
       )}

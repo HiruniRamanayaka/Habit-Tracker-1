@@ -23,6 +23,15 @@ const HabitInput = ({ onClose }: { onClose: () => void }) => {
   };
 
   const handleSubmit = async () => {
+    if (!habitName) {
+      Alert.alert('Please enter a habit name');
+      return;
+    }
+    if (frequency === 'weekly' && selectedDays.length === 0) {
+      Alert.alert('Please select at least one day for weekly habits');
+      return;
+    }
+    
     const habitData = {
       name: habitName,
       frequency,
