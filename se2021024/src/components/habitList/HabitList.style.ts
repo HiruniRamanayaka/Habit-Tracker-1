@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   habitCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: '#ffffff',
     borderRadius: 16,
     padding: 16,
@@ -39,16 +41,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#111827',
   },
-  habitFrequency: {
-    fontSize: 14,
-    color: '#4B5563',
-    marginTop: 4,
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#888',
+    marginRight: 12,
   },
-  habitDays: {
-    fontSize: 13,
-    color: '#6B7280',
-    marginTop: 2,
+  checkboxCompleted: {
+    backgroundColor: '#4ade80',
+    borderColor: '#4ade80',
   },
+  checkmark: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    lineHeight: 22, // to center inside 24x24 checkbox
+},
 });
 
 export default styles;

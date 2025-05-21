@@ -19,10 +19,7 @@ const HomeScreen = ({ navigation }: any) => {
         colors={['#f2f2f2', '#b0a0bd']} 
         style={styles.gradientBackground}
       >
-        
-        
-          <HabitList />
-        
+        <HabitList />
         <CreateNewHabitButton />
       </LinearGradient>
     </SafeAreaView>

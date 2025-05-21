@@ -31,8 +31,9 @@ const HabitInput = ({ onClose }: { onClose: () => void }) => {
       Alert.alert('Please select at least one day for weekly habits');
       return;
     }
-    
+
     const habitData = {
+      id: Date.now().toString(),            // unique ID for the habit
       name: habitName,
       frequency,
       days: frequency === 'weekly' ? selectedDays : [],

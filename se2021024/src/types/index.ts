@@ -5,6 +5,7 @@ export type User = {
 };
 
 export type Habit = {
+  id: string;
   name: string;
   frequency: 'daily' | 'weekly';
   days: string[]; // only for weekly habits

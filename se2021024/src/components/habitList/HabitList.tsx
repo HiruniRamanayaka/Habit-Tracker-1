@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import styles from './HabitList.style';
 import DatePicker from '../datePicker/DatePicker';
@@ -7,7 +7,11 @@ import moment from 'moment';
 
 const HabitList = () => {
     const habits = useHabitStore(state => state.habits);
-    const [selectedDate, setSelectedDate] = useState('');
+    const completed = useHabitStore(state => state.completed);
+    const toggleCompleted = useHabitStore(state => state.toggleCompleted);
+
+    // Default to today as selected date
+    const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
 
     // Get the day name from the selected date (e.g. 'Sun', 'Mon')
     const selectedDay = moment(selectedDate).format('ddd');
@@ -23,9 +27,16 @@ const HabitList = () => {
         }
     });
     
+    // Check if habit is completed for the selected date
+    const isCompletedForDate = (habitId: string) => {
+      return completed[selectedDate]?.includes(habitId);
+    };
+
   return (
     <View style={styles.container}>
       <DatePicker onDateSelect={setSelectedDate} />
+
+      {/* Display selected day habits */}
       <View style={styles.habitListContainer}>
       {filteredHabits.length === 0 ? (
         <View style={styles.noHabitsContainer}>
@@ -35,10 +46,16 @@ const HabitList = () => {
       ) : (
         <FlatList
           data={filteredHabits}
-          keyExtractor={(habit, index) => index.toString()}
-          renderItem={({ item }) => (
+          keyExtractor={(habit) => habit.id}
+          renderItem={({ item }) => (                      
             <View style={styles.habitCard}>
-                <Text style={styles.habitName}>{item.name}</Text>
+              <Text style={styles.habitName}>{item.name}</Text>
+              <TouchableOpacity 
+                onPress={() => toggleCompleted(item.id, selectedDate)}
+                style = {[styles.checkbox,  isCompletedForDate(item.id) && styles.checkboxCompleted]}
+              >
+                {isCompletedForDate(item.id) && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
             </View>
           )}
         />

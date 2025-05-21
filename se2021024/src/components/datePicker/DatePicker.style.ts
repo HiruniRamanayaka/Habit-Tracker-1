@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   },
   dateButton: {
     backgroundColor: '#ffffff',
+    marginLeft: 0,
     marginHorizontal: 5,
     padding: 10,
     borderRadius: 16,
