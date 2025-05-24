@@ -25,9 +25,11 @@ const HomeScreen = ({ navigation }: any) => {
 
         {/*show filter dropdown and filtered habits */}
         {showFilter && (
-          <View style={{ padding: 16 }}>
+          <View style={{ flex: 1, padding: 16 }}>
             <HabitFilterDropdown />
-            <FilteredHabitList />
+            <View style={{ flex: 1 }}>
+              <FilteredHabitList />
+            </View>
           </View>
         )}
 

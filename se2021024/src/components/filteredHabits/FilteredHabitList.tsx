@@ -1,14 +1,20 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
 import { Habit } from '../../types';
 import { Calendar } from 'react-native-calendars';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '../../constants/Theme';
+import styles from './FilteredHabit.style';
+import { FlatList } from 'react-native-gesture-handler';
 
 const FilteredHabitList = () => {
   const { habits, completed, filter } = useHabitStore();
+  const [visibleCalendarHabitId, setVisibleCalendarHabitId] = useState<string | null>(null);
 
   const today = moment();
+  const todayDate = today.format('YYYY-MM-DD');
   const todayDay = today.format('ddd'); // e.g. "Mon", "Tue"
 
   let filteredHabits: Habit[] = [];
@@ -36,52 +42,107 @@ const FilteredHabitList = () => {
     });
   }
 
+  //Create completed habits dates marked on calendar
+  const getMarkedDatesForHabit = (habitId: string) => {
+    const markedDates: { [date: string]: any } = {};
+    for (const date in completed) {
+      if (completed[date].includes(habitId)) {
+        markedDates[date] = {
+          marked: true,
+          dotColor: COLORS.lightPurple,
+          selectedColor: COLORS.primaryBtn,
+          selected: true,
+        };
+      }
+    }
+    return markedDates;
+  };
+
   return (
-    <View style={{ padding: 16 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {filteredHabits.length === 0 ? (
-        <Text>No habits to show</Text>
+        <View style={styles.emptyContainer}>
+          <Image 
+            source={require('../../assests/no-habit.png')} 
+            style={styles.emptyImage}
+            resizeMode="contain"
+          />
+          <Text style={styles.emptyText}>No habits to show</Text>
+        </View>
       ) : (
-        filteredHabits.map(habit => (
-          <View key={habit.id} style={{ marginBottom: 10 }}>
+        <FlatList
+          data={filteredHabits}
+          keyExtractor={(habit) => habit.id}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          renderItem={({item}) => (
+          <View key={item.id} style={styles.filteredHabits}>
+
             {/* show all habits  */}
             {filter === 'all' && (
-              <>
-                <Text style={{ fontSize: 16 }}>{habit.name}</Text>
-                <Text>Frequency: {habit.frequency}</Text>
-                {habit.frequency === 'weekly' && (
-                  <Text>Days: {habit.days.join(', ')}</Text>
+              <View style={styles.allHabits} >
+                <Text style={styles.habitName}>{item.name}</Text>
+                <Text style={styles.habitDetail}>Frequency: {item.frequency}</Text>
+                {item.frequency === 'weekly' && (
+                  <Text style={styles.habitDetail}>Days: {item.days.join(', ')}</Text>
                 )}
-              </>
+                <View style={styles.habitRow}>
+                  <Text style={styles.habitDetail}>
+                    Status Today:{' '}
+                  </Text>
+                  <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? 'green' : 'red',}]}>
+                    {completed[todayDate]?.includes(item.id) ? 'Completed' : 'Not Completed'}
+                  </Text>
+                </View>
+              </View>
             )}
 
             {/* show today habits */}
             {filter === 'today' && (
-              <>
-                <Text style={{ fontSize: 16 }}>{habit.name}</Text>
-              </>
+              <View style={styles.todayHabits}>
+                <Text style={styles.habitName}>{item.name}</Text>
+                <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? 'green' : 'red',}]}>
+                    {completed[todayDate]?.includes(item.id) ? 'Completed' : 'Not Completed'}
+                </Text>
+              </View>
             )}
 
             {/* show completed habits */}
             {filter === 'completed' && (
-              <View>
-                <Text style={{ fontSize: 16 }}>{habit.name}</Text>
-                <Text>Completed on:</Text>
-                {(() => {
-                  const dates = [];
-                  for (const date in completed) {
-                    if (completed[date].includes(habit.id)) {
-                      dates.push(date);
+            <View style={styles.completedHabits}>
+              <View style={styles.completedHeader}>
+              <Text style={styles.habitName}>{item.name}</Text>
+              {/* <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
+                Completed Dates:
+              </Text> */}
+              <TouchableOpacity
+                  onPress={() => {
+                    if (visibleCalendarHabitId === item.id) {
+                      setVisibleCalendarHabitId(null); // hide calendar
+                    } else {
+                      setVisibleCalendarHabitId(item.id); // show calendar
                     }
-                  }
-                  return dates.map(date => <Text key={date}>- {date}</Text>);
-                })()}
+                  }}
+                >
+                  <Icon name="calendar" size={24} color="#333" />
+              </TouchableOpacity>
               </View>
-            )}
+
+                {visibleCalendarHabitId === item.id && (
+                  <View style={styles.calendarWrapper}>
+                    <Calendar markedDates={getMarkedDatesForHabit(item.id)} />
+                  </View>
+                )}
+              {/* <Calendar markedDates={markedDates} /> */}
+            </View>
+          )}
+
           </View>
-        ))
+
+        )}
+        />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default FilteredHabitList;
+export default FilteredHabitList;       
