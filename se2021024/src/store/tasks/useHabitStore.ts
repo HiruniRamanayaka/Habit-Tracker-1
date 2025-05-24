@@ -4,20 +4,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Habit} from '../../types/index';
 // Removed incorrect import of get from TurboModuleRegistry
 
+type FilterType = 'none' | 'all' | 'today' | 'completed';
+
 type HabitState = {
   habits: Habit[];
+  completed: { [date: string]: string[] }; // date => array of completed habit IDs
+  filter: FilterType;
+  showFilter: boolean;
+
   addHabit: (habit: Habit) => void;
   deleteHabit: (index: number) => void;
   clearHabits: () => void;
-  completed: { [date: string]: string[] }; // date => array of completed habit IDs
   toggleCompleted: (habitId: string, date: string) => void;
+  setFilter: (filter: FilterType) => void;
+  toggleShowFilter: () => void;
 };
 
 export const useHabitStore = create<HabitState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       habits: [],
       completed: {},
+      filter: 'none',
+      showFilter: false, 
 
       // adding a habit
       addHabit: (habit) =>
@@ -54,6 +63,24 @@ export const useHabitStore = create<HabitState>()(
           }
         });
       },
+      
+      setFilter: (newFilter) => {
+        //update the current filter value
+        set({ filter: newFilter });
+      },
+
+      toggleShowFilter: () => {
+        // Get the current value of showFilter
+        const isFilterVisible = get().showFilter;
+
+        // If it's currently shown, hide it and reset the filter to 'none'
+        // If it's hidden, show it and keep the current filter value
+        set({
+          showFilter: !isFilterVisible,
+          filter: isFilterVisible ? 'none' : get().filter,
+        });
+      },
+
         
       // clearing all habits
       clearHabits: () => set({ habits: [] }),

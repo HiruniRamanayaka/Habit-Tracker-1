@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Modal} from 'react-native';
 import styles from './CustomHeader.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { Calendar } from 'react-native-calendars';
+import { useHabitStore } from '../../store/tasks/useHabitStore';
 
 const CustomHeader = () => {
     const navigation = useNavigation();
     const [calendarVisible, setCalendarVisible] = useState(false);
+    const toggleShowFilter = useHabitStore(state => state.toggleShowFilter);
     
   return (
     <View style={styles.container}>
@@ -25,8 +27,11 @@ const CustomHeader = () => {
       <Text style={styles.title}>StepWise</Text>
       </View>
 
-      {/* Calendar & Profile Icons */}
+      {/* Filter & Calendar & Profile Icons */}
       <View style={styles.iconContainer}>
+        <TouchableOpacity style={styles.iconButton} onPress={toggleShowFilter}>
+            <Icon name="options" size={24} color="#000" />
+        </TouchableOpacity>  
         <TouchableOpacity style={styles.iconButton} onPress={() => setCalendarVisible(true)}>
             <Icon name="calendar-outline" size={24} color="#000" />
         </TouchableOpacity>
