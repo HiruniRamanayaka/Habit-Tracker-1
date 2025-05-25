@@ -13,7 +13,13 @@ const LogoutButton = ({ navigation }: any) => {
     //await AsyncStorage.removeItem('user');  <--- Delete account
     // await AsyncStorage.setItem('actionType', 'logout'); // Store action
     // await AsyncStorage.setItem('isLoggedIn', 'false');
-    useHabitStore.getState().clearHabits();
+    useHabitStore.setState({
+      habits: [],
+      completed: {},
+      filter: 'none',
+      showFilter: false,
+    });
+
     await AsyncStorage.removeItem('habit-storage'); // Clear persistent key
     setUser(null);
     navigation.replace('LogIn');

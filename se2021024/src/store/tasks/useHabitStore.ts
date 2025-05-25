@@ -13,7 +13,7 @@ type HabitState = {
   showFilter: boolean;
 
   addHabit: (habit: Habit) => void;
-  deleteHabit: (index: number) => void;
+  deleteHabit: (id: string) => void;
   clearHabits: () => void;
   toggleCompleted: (habitId: string, date: string) => void;
   setFilter: (filter: FilterType) => void;
@@ -35,9 +35,9 @@ export const useHabitStore = create<HabitState>()(
         })),
 
       // deleting a habit
-      deleteHabit: (index) =>
+      deleteHabit: (id: string) =>
         set((state) => ({
-          habits: state.habits.filter((_, i) => i !== index),
+          habits: state.habits.filter(habit => habit.id !== id),
         })),
       
       // toggling the completion status of a habit

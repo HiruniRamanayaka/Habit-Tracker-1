@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { FlatList, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import styles from './HabitList.style';
 import DatePicker from '../datePicker/DatePicker';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
+import DeleteHabitButton from '../buttons/deleteHabit/DeleteHabit';
 
 const HabitList = () => {
     const habits = useHabitStore(state => state.habits);
     const completed = useHabitStore(state => state.completed);
     const toggleCompleted = useHabitStore(state => state.toggleCompleted);
+    const [selectedHabitId, setSelectedHabitId] = useState<string | null>(null);
 
     // Default to today as selected date
     const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
@@ -68,20 +70,37 @@ const HabitList = () => {
         <FlatList
           data={filteredHabits}
           keyExtractor={(habit) => habit.id}
-          renderItem={({ item }) => (                      
-            <View style={styles.habitCard}>
-              <Text style={styles.habitName}>{item.name}</Text>
-              <TouchableOpacity 
-                onPress={() => handleToggleComplete(item.id)}
-                style = {[styles.checkbox,  isCompletedForDate(item.id) && styles.checkboxCompleted]}
-              >
-                {isCompletedForDate(item.id) && <Text style={styles.checkmark}>✓</Text>}
-              </TouchableOpacity>
-            </View>
+          renderItem={({ item }) => (
+            <Pressable                //
+              onPress={() =>
+                setSelectedHabitId(
+                  item.id === selectedHabitId ? null : item.id,
+                )
+              }
+            >                     
+              <View style={styles.habitCard}>
+                <Text style={styles.habitName}>{item.name}</Text>
+                <TouchableOpacity 
+                  onPress={() => handleToggleComplete(item.id)}
+                  style = {[styles.checkbox,  isCompletedForDate(item.id) && styles.checkboxCompleted]}
+                >
+                  {isCompletedForDate(item.id) && <Text style={styles.checkmark}>✓</Text>}
+                </TouchableOpacity>
+              </View>
+
+              {/* Show actions if selected */}
+              {selectedHabitId === item.id &&  (
+                <View style={styles.buttonsRow}>
+                  <DeleteHabitButton habitId={item.id} />
+                  {/* <EditTaskButton index={index} /> */}
+                </View>
+              )}
+            </Pressable>
           )}
         />
       )}
       </View>
+      
 
       {/* celebration modal */}
       <Modal transparent visible={showCelebration} animationType='fade'>
@@ -112,6 +131,8 @@ const HabitList = () => {
           </View>
         </View>
       </Modal>
+
+      
 
     </View>
 

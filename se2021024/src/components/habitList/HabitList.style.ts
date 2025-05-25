@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
     width: 200, 
     height: 200 
   },
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 15,
+    gap: 10,
+  },
 });
 
 export default styles;
