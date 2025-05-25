@@ -7,6 +7,7 @@ import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
+import LinearGradient from 'react-native-linear-gradient';
 
 const days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -61,7 +62,7 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-
+    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
       {/*show filter dropdown and filtered habits */}
         {showFilter && (
           <View style={{ flex: 1, padding: 16 }}>
@@ -74,7 +75,9 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
 
         {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
         {!showFilter && filter === 'none' && 
-          <>
+         <>
+          <Text style={styles.heading}>Add New Habits</Text>
+          <View style={styles.form}>
             <Text style={styles.label}>Habit Name</Text>
             <TextInput
               style={styles.input}
@@ -118,9 +121,10 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
             >
                 <Text style={styles.addButtonText}>Add Habit</Text>
             </TouchableOpacity>
-          </>  
+          </View>  
+          </>
         }
-
+    </LinearGradient>
     </SafeAreaView>
   );
 };

@@ -2,12 +2,31 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/Theme';
 
 const styles = StyleSheet.create({
+ screen: {
+    flex: 1,
+    marginTop: 5,
+ },
+  gradientBackground: {
+    flex: 1,
+  },
   container: {
     padding: 10,
     flex: 1,
   },
+  form: {
+    margin: 20,
+    backgroundColor: COLORS.white,
+    padding: 30,
+    borderRadius: 10,
+  },
+  heading: {
+    marginTop: 60,
+    fontSize: 24,
+    fontWeight: 500,
+    textAlign: 'center',
+  },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     marginBottom: 8,
     color: COLORS.darkGray,
