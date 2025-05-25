@@ -9,6 +9,7 @@ import CustomHeader from '../components/customHeader/CustomHeader';
 import AnotherScreen from '../screens/AnotherScreen';
 import CompletedHabitsScreen from '../screens/completedHabits/CompletedHabits.screen';
 import ProgressScreen from '../screens/progress/Progress.screen';
+import WeeklyProgressScreen from '../screens/weeklyProgress/WeeklyProgress.screen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -24,6 +25,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Another" component={AnotherScreen} />
       <Drawer.Screen name="CompletedHabits" component={CompletedHabitsScreen} />
       <Drawer.Screen name="Progress" component={ProgressScreen} />
+      <Drawer.Screen name="Weekly Progress" component={WeeklyProgressScreen} />
       {/* Add more screens here */}
     </Drawer.Navigator>
   );

@@ -58,7 +58,7 @@ const ProgressScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-        <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
     <View style={styles.container}>
       <Text style={styles.title}>Today's Progress</Text>
       <View style={styles.card}>

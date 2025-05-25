@@ -11,7 +11,7 @@ const CreateNewHabitButton = () => {
   };
   
   return (
-    <View style={{ flex: 1 }}>
+    <>
     <TouchableOpacity 
         onPress={() => setModalVisible(true)} 
         style={styles.fab}
@@ -32,7 +32,7 @@ const CreateNewHabitButton = () => {
           </View>
         </View>
     </Modal>
-    </View>
+    </>
   );
 };
 

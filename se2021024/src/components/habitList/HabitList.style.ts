@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     color: '#6B7280',
   },
   habitListContainer: {
+    flex: 1,
     marginTop: 20,
   },
   habitCard: {
