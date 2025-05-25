@@ -10,16 +10,13 @@ import FilteredHabitList from '../filteredHabits/FilteredHabitList';
 
 const days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-const HabitInput = ({ onClose }: { onClose?: () => void }) => {
+const HabitInput = ({ onClose }: { onClose: () => void }) => {
     const addHabit = useHabitStore(state => state.addHabit);
-     const todayDate = moment().format('YYYY-MM-DD');
+    const todayDate = moment().format('YYYY-MM-DD');
 
     const [habitName, setHabitName] = useState('');
     const [frequency, setFrequency] = useState<'daily' | 'weekly'>('daily');
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
-
-    const filter = useHabitStore(state => state.filter);
-    const showFilter = useHabitStore(state => state.showFilter);
 
     const toggleDay = (day: string) => {
     if (selectedDays.includes(day)) {
@@ -52,75 +49,57 @@ const HabitInput = ({ onClose }: { onClose?: () => void }) => {
     setHabitName('');
     setFrequency('daily');
     setSelectedDays([]);
-
-    // Only call onClose if it's provided
-    if (onClose) {
-      onClose();
-    }
+    onClose();
   };
 
   return (
     <SafeAreaView style={styles.container}>
-
-      {/*show filter dropdown and filtered habits */}
-        {showFilter && (
-          <View style={{ flex: 1, padding: 16 }}>
-            <HabitFilterDropdown />
-            <View style={{ flex: 1 }}>
-              <FilteredHabitList />
-            </View>
+      <>
+        <Text style={styles.label}>Habit Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter habit name"
+          value={habitName}
+          onChangeText={setHabitName}
+        />
+        <Text style={styles.label}>Frequency</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={frequency}
+            onValueChange={(itemValue) => setFrequency(itemValue)}
+            style={styles.picker}
+            >
+              <Picker.Item label="Daily" value="daily" />
+              <Picker.Item label="Weekly" value="weekly" />
+            </Picker>
           </View>
-        )}
 
-        {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
-        {!showFilter && filter === 'none' && 
-          <>
-            <Text style={styles.label}>Habit Name</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter habit name"
-              value={habitName}
-              onChangeText={setHabitName}
-            />
-            <Text style={styles.label}>Frequency</Text>
-            <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={frequency}
-                  onValueChange={(itemValue) => setFrequency(itemValue)}
-                  style={styles.picker}
-                >
-                  <Picker.Item label="Daily" value="daily" />
-                  <Picker.Item label="Weekly" value="weekly" />
-                </Picker>
-            </View>
-
-            {frequency === 'weekly' && (
-                <>
-                <Text style={styles.label}>Select Days</Text>
-                <View style={styles.daysContainer}>
-                    {days_of_week.map((day) => (
-                        <TouchableOpacity
-                          key={day}
-                          style={[
-                            styles.dayButton, 
-                            selectedDays.includes(day) && styles.dayButtonSelected]}
-                          onPress={() => toggleDay(day)}
-                        >
-                          <Text style={styles.dayText}>{day}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-                </>
+          {frequency === 'weekly' && (
+            <>
+              <Text style={styles.label}>Select Days</Text>
+              <View style={styles.daysContainer}>
+                {days_of_week.map((day) => (
+                  <TouchableOpacity
+                    key={day}
+                    style={[
+                      styles.dayButton, 
+                      selectedDays.includes(day) && styles.dayButtonSelected]}
+                      onPress={() => toggleDay(day)}
+                  >
+                   <Text style={styles.dayText}>{day}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </>
             )}
             <TouchableOpacity
-                style={styles.addButton}
-                onPress={handleSubmit}
+              style={styles.addButton}
+              onPress={handleSubmit}
             >
-                <Text style={styles.addButtonText}>Add Habit</Text>
+              <Text style={styles.addButtonText}>Add Habit</Text>
             </TouchableOpacity>
           </>  
-        }
-
+      
     </SafeAreaView>
   );
 };

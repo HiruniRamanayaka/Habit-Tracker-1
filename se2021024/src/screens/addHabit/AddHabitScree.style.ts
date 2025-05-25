@@ -4,6 +4,7 @@ import { COLORS } from '../../constants/Theme';
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    flex: 1,
   },
   label: {
     fontSize: 16,
@@ -56,16 +57,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   addButton: {
-    backgroundColor: COLORS.primaryBtn,
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 20,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
+  backgroundColor: COLORS.primaryBtn,
+  paddingVertical: 14,
+  borderRadius: 12,
+  alignItems: 'center',
+  marginTop: 20,
+  shadowColor: COLORS.black,
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 3,
 },
 addButtonText: {
   color: COLORS.white,

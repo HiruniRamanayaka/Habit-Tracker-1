@@ -9,6 +9,7 @@ import { COLORS } from '../constants/Theme';
 import ProgressScreen from '../screens/progress/Progress.screen';
 import HabitCalendar from '../screens/habitCalendar/HabitCalendar.screen';
 import HabitCalendarScreen from '../screens/habitCalendar/HabitCalendar.screen';
+import AddHabitScreen from '../screens/addHabit/AddHabit.screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +17,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color }) => {
           let iconName = '';
 
           if (route.name === 'HomeTab') iconName = 'home-outline';
@@ -24,7 +25,17 @@ const BottomTabNavigator = () => {
           else if (route.name === 'AddHabitTab') iconName = 'add';
           else if (route.name === 'CalendarTab') iconName = 'calendar-outline';
 
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={30} color={color} />;
+        },
+        tabBarStyle: {
+          height: 100,
+        },
+        tabBarLabelStyle: {
+          marginTop: 4,      // space between icon and label
+          fontSize: 12,
+        },
+        tabBarIconStyle: {
+          marginTop: 6,      // moves icon down
         },
         tabBarActiveTintColor: COLORS.background,
         tabBarInactiveTintColor: COLORS.darkGray,
@@ -32,7 +43,7 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
-      <Tab.Screen name="AddHabitTab" component={HabitInput} options={{title: 'Add Habits'}} />
+      <Tab.Screen name="AddHabitTab" component={AddHabitScreen} options={{title: 'Add Habits'}} />
       <Tab.Screen name="ProgressTab" component={ProgressScreen} options={{ title: 'Progress' }} />
       <Tab.Screen name="CalendarTab" component={HabitCalendarScreen} options={{ title: 'Habit Streaks' }} />
       
