@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import styles from './HabitList.style';
 import DatePicker from '../datePicker/DatePicker';
 import moment from 'moment';
+import LottieView from 'lottie-react-native';
 
 const HabitList = () => {
     const habits = useHabitStore(state => state.habits);
@@ -12,6 +13,7 @@ const HabitList = () => {
 
     // Default to today as selected date
     const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
+    const [showCelebration, setShowCelebration] = useState(false);
 
     // Get the day name from the selected date (e.g. 'Sun', 'Mon')
     const selectedDay = moment(selectedDate).format('ddd');
@@ -32,6 +34,17 @@ const HabitList = () => {
       return completed[selectedDate]?.includes(habitId);
     };
 
+    //Show modal when completed
+    const handleToggleComplete = (habitId: string) => {
+    const alreadyCompleted = isCompletedForDate(habitId);
+    toggleCompleted(habitId, selectedDate);
+
+    // Show modal only if it was not completed before
+    if (!alreadyCompleted) {
+      setShowCelebration(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <DatePicker onDateSelect={setSelectedDate} />
@@ -51,7 +64,7 @@ const HabitList = () => {
             <View style={styles.habitCard}>
               <Text style={styles.habitName}>{item.name}</Text>
               <TouchableOpacity 
-                onPress={() => toggleCompleted(item.id, selectedDate)}
+                onPress={() => handleToggleComplete(item.id)}
                 style = {[styles.checkbox,  isCompletedForDate(item.id) && styles.checkboxCompleted]}
               >
                 {isCompletedForDate(item.id) && <Text style={styles.checkmark}>✓</Text>}
@@ -61,7 +74,39 @@ const HabitList = () => {
         />
       )}
       </View>
+
+      {/* celebration modal */}
+      <Modal transparent visible={showCelebration} animationType='fade'>
+        <View style={styles.celebrationModal}>
+          <View style={styles.modal}>
+            <LottieView
+              source={require('../../assests/celebration.json')}
+              autoPlay
+              loop={false}
+              style={styles.lottieView}
+            />
+            <Text style={styles.celebrationText}>Well Done!</Text>
+
+            {/* Close button */}
+            <TouchableOpacity
+              onPress={() => setShowCelebration(false)}
+              style={{
+                marginTop: 20,
+                backgroundColor: '#dedede',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                borderRadius: 10,
+                elevation: 5,
+              }}
+            >
+              <Text style={styles.closeText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
+
   );
 };
 

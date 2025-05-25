@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/Theme';
+import LottieView from 'lottie-react-native';
 
 const styles = StyleSheet.create({
  container: {
@@ -60,7 +61,33 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     lineHeight: 22, // to center inside 24x24 checkbox
-},
+  },
+  celebrationModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  modal: {
+    backgroundColor: '#ffffff',
+    padding: 40,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  celebrationText: {
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    marginBottom: 20,
+  },
+  closeText: {
+    fontSize: 16, 
+    color: '#333'
+  },
+  lottieView: { 
+    width: 200, 
+    height: 200 
+  },
 });
 
 export default styles;
