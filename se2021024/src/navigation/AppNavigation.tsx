@@ -10,6 +10,8 @@ import AnotherScreen from '../screens/AnotherScreen';
 import CompletedHabitsScreen from '../screens/completedHabits/CompletedHabits.screen';
 import ProgressScreen from '../screens/progress/Progress.screen';
 import WeeklyProgressScreen from '../screens/weeklyProgress/WeeklyProgress.screen';
+import CustomDrawer from '../components/customDrawer/CustomDrawer';
+import { COLORS } from '../constants/Theme';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -17,8 +19,19 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
+    drawerContent={(props) => <CustomDrawer {...props} />}
       screenOptions={{
         header: () => <CustomHeader />, // Custom header here screens
+        drawerActiveBackgroundColor:'#e4d1ff', // background color when active
+        drawerActiveTintColor: COLORS.background,       // Text/icon color when active
+        drawerInactiveTintColor: '#333',       // Text/icon color when not active
+        drawerStyle: {
+          backgroundColor: '#fff',
+          width: 270,
+        },
+        drawerLabelStyle: {
+          fontSize: 16,
+        },
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
