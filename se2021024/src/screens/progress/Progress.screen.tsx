@@ -6,10 +6,14 @@ import * as Progress from 'react-native-progress';
 import { COLORS } from '../../constants/Theme';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './ProgressScreen.style';
+import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
+import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
 
 const ProgressScreen = () => {
   const habits = useHabitStore(state => state.habits);
   const completed = useHabitStore(state => state.completed);
+  const filter = useHabitStore(state => state.filter);
+  const showFilter = useHabitStore(state => state.showFilter);
 
   const today = moment().format('YYYY-MM-DD');
   const completedToday = completed[today] || [];
@@ -59,28 +63,45 @@ const ProgressScreen = () => {
   return (
     <SafeAreaView style={styles.screen}>
     <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
-    <View style={styles.container}>
-      <Text style={styles.title}>Today's Progress</Text>
-      <View style={styles.card}>
-        <View style={styles.progressBar}>
-            <Progress.Bar
-            progress={percentCompleted / 100}
-            width={250}
-            height={20}
-            color={COLORS.primaryBtn || '#4CAF50'}
-            unfilledColor="#e0e0e0"
-            borderRadius={10}
-            borderWidth={0}
-            />
+    
+    {/*show filter dropdown and filtered habits */}
+    {showFilter && (
+      <View style={{ flex: 1, padding: 16 }}>
+        <HabitFilterDropdown />
+        <View style={{ flex: 1 }}>
+          <FilteredHabitList />
         </View>
-        <Text style={styles.emoji}>{progressEmoji}</Text>
-        <Text style={styles.message}>{progressMessage}</Text>
-        <Text style={styles.text}>
-          {completedToday.length} / {habitsToday.length} habits completed
-        </Text>
-        <Text style={styles.textPercentage}>Progress: {percentCompleted}%</Text>
       </View>
-    </View>
+    )}
+
+    {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
+    {!showFilter && filter === 'none' && 
+      <>
+        <View style={styles.container}>
+          <Text style={styles.title}>Today's Progress</Text>
+          <View style={styles.card}>
+            <View style={styles.progressBar}>
+                <Progress.Bar
+                progress={percentCompleted / 100}
+                width={250}
+                height={20}
+                color={COLORS.primaryBtn || '#4CAF50'}
+                unfilledColor="#e0e0e0"
+                borderRadius={10}
+                borderWidth={0}
+                />
+            </View>
+            <Text style={styles.emoji}>{progressEmoji}</Text>
+            <Text style={styles.message}>{progressMessage}</Text>
+            <Text style={styles.text}>
+              {completedToday.length} / {habitsToday.length} habits completed
+            </Text>
+            <Text style={styles.textPercentage}>Progress: {percentCompleted}%</Text>
+          </View>
+        </View>
+      </>  
+    }
+
     </LinearGradient>
     </SafeAreaView>
   );
