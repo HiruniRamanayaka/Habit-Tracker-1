@@ -6,10 +6,14 @@ import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './WeeklyProgressScreen.style'
+import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
+import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
 
 const WeeklyProgressScreen = () => {
   const habits = useHabitStore(state => state.habits);
   const completed = useHabitStore(state => state.completed);
+  const filter = useHabitStore(state => state.filter);
+  const showFilter = useHabitStore(state => state.showFilter);
   
   // Get dates for this week (Mon–Sun)
   const getWeekDates = () => {
@@ -80,46 +84,65 @@ const WeeklyProgressScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}></LinearGradient>
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Weekly Progress</Text>
+    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+      {/*show filter dropdown and filtered habits */}
+        {showFilter && (
+          <View style={{ flex: 1, padding: 16 }}>
+            <HabitFilterDropdown />
+            <View style={{ flex: 1 }}>
+              <FilteredHabitList />
+            </View>
+          </View>
+        )}
 
-      <BarChart
-        data={chartData}
-        width={Dimensions.get('window').width - 40}
-        height={220}
-        fromZero
-        showValuesOnTopOfBars
-        yAxisSuffix="%"
-        yAxisLabel=""
-        chartConfig={{
-          backgroundColor: '#fff',
-          backgroundGradientFrom: '#fff',
-          backgroundGradientTo: '#fff',
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(75, 0, 130, ${opacity})`,
-          labelColor: () => '#333',
-          barPercentage: 0.5,
-        }}
-        style={{
-          marginVertical: 16,
-          borderRadius: 8,
-          alignSelf: 'center',
-          paddingTop: 20,
-          paddingBottom: 20,
-        }}
-      />
-       
-      {/* Optional: keep detailed text below the chart */}
-      {weeklyStat.map(stat => (
-        <View key={stat.fullDate} style={styles.dayBox}>
-          <Text style={styles.dayText}>{stat.fullDate}</Text>
-          <Text style={styles.progressText}>
-            {stat.completedCount} / {stat.total} completed ({stat.percent}%)
-          </Text>
-        </View>
-      ))}
-    </ScrollView>
+        {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
+        {!showFilter && filter === 'none' && 
+          <>
+            <ScrollView contentContainerStyle={styles.container}>
+              <Text style={styles.title}>Weekly Progress</Text>
+
+              <BarChart
+                data={chartData}
+                width={Dimensions.get('window').width - 40}
+                height={220}
+                fromZero
+                showValuesOnTopOfBars
+                yAxisSuffix="%"
+                yAxisLabel=""
+                chartConfig={{
+                  backgroundColor: '#4f2586',
+                  backgroundGradientFrom: '#4f2586',
+                  backgroundGradientTo: '#4f2586',
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: () => '#fff',
+                  propsForBackgroundLines: {
+                    stroke: '#222222',
+                  },
+                  barPercentage: 0.5,
+                }}
+                style={{
+                  marginVertical: 16,
+                  borderRadius: 8,
+                  alignSelf: 'center',
+                  paddingTop: 20,
+                  paddingBottom: 20,
+                }}
+              />
+              
+              {/* Optional: keep detailed text below the chart */}
+              {weeklyStat.map(stat => (
+                <View key={stat.fullDate} style={styles.dayBox}>
+                  <Text style={styles.dayText}>{stat.fullDate}</Text>
+                  <Text style={styles.progressText}>
+                    {stat.completedCount} / {stat.total} completed ({stat.percent}%)
+                  </Text>
+                </View>
+              ))}
+            </ScrollView>
+          </>  
+        }
+    </LinearGradient>
     </SafeAreaView>
   );
 };
