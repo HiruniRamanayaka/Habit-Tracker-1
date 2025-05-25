@@ -8,10 +8,10 @@ import { UserContext, UserType } from '../common/context/userContext';
 import CustomHeader from '../components/customHeader/CustomHeader';
 import AnotherScreen from '../screens/AnotherScreen';
 import CompletedHabitsScreen from '../screens/completedHabits/CompletedHabits.screen';
-import ProgressScreen from '../screens/progress/Progress.screen';
 import WeeklyProgressScreen from '../screens/weeklyProgress/WeeklyProgress.screen';
 import CustomDrawer from '../components/customDrawer/CustomDrawer';
 import { COLORS } from '../constants/Theme';
+import BottomTabNavigator from './BottomTabNavigation';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-    drawerContent={(props) => <CustomDrawer {...props} />}
+      drawerContent={(props) => <CustomDrawer {...props} />}
       screenOptions={{
         header: () => <CustomHeader />, // Custom header here screens
         drawerActiveBackgroundColor:'#e4d1ff', // background color when active
@@ -34,10 +34,9 @@ const DrawerNavigator = () => {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={BottomTabNavigator} />
       <Drawer.Screen name="Another" component={AnotherScreen} />
       <Drawer.Screen name="CompletedHabits" component={CompletedHabitsScreen} />
-      <Drawer.Screen name="Progress" component={ProgressScreen} />
       <Drawer.Screen name="Weekly Progress" component={WeeklyProgressScreen} />
       {/* Add more screens here */}
     </Drawer.Navigator>

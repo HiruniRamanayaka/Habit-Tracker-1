@@ -7,7 +7,7 @@ import { useHabitStore } from '../../store/tasks/useHabitStore';
 
 const days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-const HabitInput = ({ onClose }: { onClose: () => void }) => {
+const HabitInput = ({ onClose }: { onClose?: () => void }) => {
     const addHabit = useHabitStore(state => state.addHabit);
 
     const [habitName, setHabitName] = useState('');
@@ -44,7 +44,11 @@ const HabitInput = ({ onClose }: { onClose: () => void }) => {
     setHabitName('');
     setFrequency('daily');
     setSelectedDays([]);
-    onClose();  
+
+    // Only call onClose if it's provided
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (
