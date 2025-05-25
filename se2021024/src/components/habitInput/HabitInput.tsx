@@ -4,11 +4,13 @@ import { Alert, Button, TextInput, TouchableOpacity, View } from 'react-native';
 import { ScrollView, Text } from 'react-native-gesture-handler';
 import styles from './HabitInput.style';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
+import moment from 'moment';
 
 const days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const HabitInput = ({ onClose }: { onClose?: () => void }) => {
     const addHabit = useHabitStore(state => state.addHabit);
+     const todayDate = moment().format('YYYY-MM-DD');
 
     const [habitName, setHabitName] = useState('');
     const [frequency, setFrequency] = useState<'daily' | 'weekly'>('daily');
@@ -23,7 +25,7 @@ const HabitInput = ({ onClose }: { onClose?: () => void }) => {
   };
 
   const handleSubmit = async () => {
-    if (!habitName) {
+    if (!habitName) { 
       Alert.alert('Please enter a habit name');
       return;
     }
@@ -37,6 +39,7 @@ const HabitInput = ({ onClose }: { onClose?: () => void }) => {
       name: habitName,
       frequency,
       days: frequency === 'weekly' ? selectedDays : [],
+      createdAt: moment().format('YYYY-MM-DD'),
     };
 
     await addHabit(habitData);

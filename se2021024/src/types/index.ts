@@ -9,4 +9,5 @@ export type Habit = {
   name: string;
   frequency: 'daily' | 'weekly';
   days: string[]; // only for weekly habits
+  createdAt: string;
 };

@@ -20,6 +20,14 @@ const HabitList = () => {
 
     // Filter habits based on selected day
     const filteredHabits = habits.filter(habit => {
+        const createdAt = moment(habit.createdAt, 'YYYY-MM-DD');
+        const selected = moment(selectedDate, 'YYYY-MM-DD');
+
+        // Do not show habit on dates before it was created
+        if (selected < createdAt) {
+          return false;
+        }
+
         if (habit.frequency === 'daily') {
             return true;
         } else if (habit.frequency === 'weekly') {
