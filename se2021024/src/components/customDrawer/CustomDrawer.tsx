@@ -28,7 +28,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       </View>
 
       <View style={styles.footer}>
-        <LogoutButton />
+        <LogoutButton navigation={props.navigation}/>
       </View>
     </DrawerContentScrollView>
   );
