@@ -3,7 +3,8 @@ import { COLORS } from '../../constants/Theme';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
+    flex: 1,
   },
   label: {
     fontSize: 16,

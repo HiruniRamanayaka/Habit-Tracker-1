@@ -121,8 +121,6 @@ const HabitInput = ({ onClose }: { onClose?: () => void }) => {
           </>  
         }
 
-        
-        
     </SafeAreaView>
   );
 };
