@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    padding: 10,
+    paddingTop: 5,
     flex: 1,
   },
   form: {

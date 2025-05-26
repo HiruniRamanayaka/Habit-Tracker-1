@@ -15,12 +15,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
     textAlign: 'center',
   },
   dayBox: {
-    padding: 10,
-    marginBottom: 5,
+    padding: 5,
+    marginBottom: 10,
     backgroundColor: '#e2e2e2',
     borderRadius: 10,
   },

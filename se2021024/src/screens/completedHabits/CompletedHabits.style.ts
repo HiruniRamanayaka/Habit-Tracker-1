@@ -18,10 +18,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
+  noHabitsContainer: {
+    alignItems: 'center',
+    marginTop: 40,
+  },
   noText: {
     fontSize: 16,
     color: '#888',
     marginTop: 20,
+  },
+  noHabitsImage: {
+    width: 160,
+    height: 160,
+    marginBottom: 12,
+    opacity: 0.8,
   },
   habitItem: {
     flexDirection: 'row',
@@ -51,6 +61,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 15,
+    gap: 10,
   },
 });
 

@@ -12,8 +12,11 @@ import { useHabitStore } from '../../store/tasks/useHabitStore';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
 import CustomHeader from '../../components/customHeader/CustomHeader';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 const HomeScreen = ({ navigation }: any) => {
+  const { theme } = useContext(ThemeContext);
+
   const { user, setUser } = useContext(UserContext);
   console.log(user);
   const filter = useHabitStore(state => state.filter);
@@ -21,7 +24,10 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+      <LinearGradient
+      colors={theme.mode === 'dark' ? ['#000', '#000'] : ['#f2f2f2', '#b0a0bd']}
+      style={styles.gradientBackground}
+    >
 
         {/*show filter dropdown and filtered habits */}
         {showFilter && (

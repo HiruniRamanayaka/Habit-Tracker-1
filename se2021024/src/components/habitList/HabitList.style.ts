@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     borderColor: '#888',
     marginRight: 12,
   },
-  checkboxCompleted: {
-    backgroundColor: '#4ade80',
-    borderColor: '#4ade80',
-  },
+  // checkboxCompleted: {
+  //   backgroundColor: '#4ade80',
+  //   borderColor: '#4ade80',
+  // },
   checkmark: {
     color: '#fff',
     fontSize: 16,

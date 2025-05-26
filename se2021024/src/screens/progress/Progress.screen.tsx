@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
@@ -8,8 +8,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './ProgressScreen.style';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 const ProgressScreen = () => {
+  const { theme } = useContext(ThemeContext);
   const habits = useHabitStore(state => state.habits);
   const completed = useHabitStore(state => state.completed);
   const filter = useHabitStore(state => state.filter);
@@ -62,7 +64,10 @@ const ProgressScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+    <LinearGradient 
+      colors={theme.mode === 'dark' ? ['#000', '#000'] : ['#f2f2f2', '#b0a0bd']}
+      style={styles.gradientBackground}
+    >
     
     {/*show filter dropdown and filtered habits */}
     {showFilter && (
@@ -77,26 +82,26 @@ const ProgressScreen = () => {
     {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
     {!showFilter && filter === 'none' && 
       <>
-        <View style={styles.container}>
-          <Text style={styles.title}>Today's Progress</Text>
-          <View style={styles.card}>
+        <View style={[styles.container]}>
+          <Text style={[styles.title, { color: theme.text }]}>Today's Progress</Text>
+          <View style={[styles.card, { backgroundColor: theme.card, shadowColor: theme.shadow || '#000' }]}>
             <View style={styles.progressBar}>
                 <Progress.Bar
-                progress={percentCompleted / 100}
-                width={250}
-                height={20}
-                color={COLORS.primaryBtn || '#4CAF50'}
-                unfilledColor="#e0e0e0"
-                borderRadius={10}
-                borderWidth={0}
+                  progress={percentCompleted / 100}
+                  width={250}
+                  height={20}
+                  color={theme.primary}
+                  unfilledColor={theme.unfilledBar || '#444'}
+                  borderRadius={10}
+                  borderWidth={0}
                 />
             </View>
-            <Text style={styles.emoji}>{progressEmoji}</Text>
-            <Text style={styles.message}>{progressMessage}</Text>
-            <Text style={styles.text}>
+            <Text style={[styles.emoji]}>{progressEmoji}</Text>
+            <Text style={[styles.message, { color: theme.text }]}>{progressMessage}</Text>
+            <Text style={[styles.text, { color: theme.textSecondary }]}>
               {completedToday.length} / {habitsToday.length} habits completed
             </Text>
-            <Text style={styles.textPercentage}>Progress: {percentCompleted}%</Text>
+            <Text style={[styles.textPercentage, { color: theme.textSecondary }]}>Progress: {percentCompleted}%</Text>
           </View>
         </View>
       </>  

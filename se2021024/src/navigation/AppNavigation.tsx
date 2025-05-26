@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import LogInScreen from '../screens/login/LogIn.screen';
@@ -12,21 +12,23 @@ import WeeklyProgressScreen from '../screens/weeklyProgress/WeeklyProgress.scree
 import CustomDrawer from '../components/customDrawer/CustomDrawer';
 import { COLORS } from '../constants/Theme';
 import BottomTabNavigator from './BottomTabNavigation';
+import { ThemeContext } from '../common/context/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
       screenOptions={{
         header: () => <CustomHeader />, // Custom header here screens
-        drawerActiveBackgroundColor:'#e4d1ff', // background color when active
-        drawerActiveTintColor: COLORS.background,       // Text/icon color when active
-        drawerInactiveTintColor: '#333',       // Text/icon color when not active
+        drawerActiveBackgroundColor: theme.mode === 'dark' ? '#333' : '#e4d1ff', // background color when active
+        drawerActiveTintColor: theme.text,      // Text/icon color when active
+        drawerInactiveTintColor: theme.mode === 'dark' ? '#ccc' : '#333',      // Text/icon color when not active
         drawerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: theme.background,
           width: 270,
         },
         drawerLabelStyle: {

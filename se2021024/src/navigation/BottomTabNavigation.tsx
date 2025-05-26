@@ -1,5 +1,5 @@
 // navigation/BottomTabNavigator.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home/Home.screen';
 import AnotherScreen from '../screens/AnotherScreen';
@@ -10,10 +10,13 @@ import ProgressScreen from '../screens/progress/Progress.screen';
 import HabitCalendar from '../screens/habitCalendar/HabitCalendar.screen';
 import HabitCalendarScreen from '../screens/habitCalendar/HabitCalendar.screen';
 import AddHabitScreen from '../screens/addHabit/AddHabit.screen';
+import { ThemeContext } from '../common/context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const { theme, isDarkMode } = useContext(ThemeContext);
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -29,6 +32,7 @@ const BottomTabNavigator = () => {
         },
         tabBarStyle: {
           height: 100,
+          backgroundColor: theme.tabBar,
         },
         tabBarLabelStyle: {
           marginTop: 4,      // space between icon and label
@@ -37,8 +41,8 @@ const BottomTabNavigator = () => {
         tabBarIconStyle: {
           marginTop: 6,      // moves icon down
         },
-        tabBarActiveTintColor: COLORS.background,
-        tabBarInactiveTintColor: COLORS.darkGray,
+        tabBarActiveTintColor: isDarkMode ? '#ac81ca' : COLORS.background,
+        tabBarInactiveTintColor: isDarkMode ? '#aaa' : COLORS.darkGray,
         headerShown: false,
       })}
     >

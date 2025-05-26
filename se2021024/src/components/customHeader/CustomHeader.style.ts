@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/Theme';
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     height: 60,
     paddingHorizontal: 16,
     flexDirection: 'row',

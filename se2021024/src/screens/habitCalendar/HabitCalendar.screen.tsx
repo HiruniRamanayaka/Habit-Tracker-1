@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
 import styles from './HabitCalendar.style';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 // Define the type for marked dates
 type MarkedDate = {
@@ -18,9 +19,14 @@ type MarkedDate = {
 };
 
 const HabitCalendarScreen = () => {
+  const { theme } = useContext(ThemeContext);
   const completed = useHabitStore((state) => state.completed);
   const filter = useHabitStore(state => state.filter);
   const showFilter = useHabitStore(state => state.showFilter);
+  if (!theme || !theme.mode) {
+  return null; // or a loading spinner
+}
+
 
   const markedDates: { [key: string]: MarkedDate } = {}; // this object will use string keys
 
@@ -51,7 +57,10 @@ const HabitCalendarScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+      <LinearGradient 
+      colors={theme.mode === 'dark' ? ['#000', '#000'] : ['#f2f2f2', '#b0a0bd']}
+      style={styles.gradientBackground}
+      >
         {/*show filter dropdown and filtered habits */}
         {showFilter && (
           <View style={{ flex: 1, padding: 16 }}>
@@ -66,15 +75,27 @@ const HabitCalendarScreen = () => {
         {!showFilter && filter === 'none' && 
           <>
             <View style={styles.container}>
-              <Text style={styles.title}>Habit Streaks</Text>
+              <Text style={[styles.title, { color: theme.text }]}>Habit Streaks</Text>
               <Calendar
                 markedDates={markedDates}
                 theme={{
+                  backgroundColor: theme.mode === 'dark' ? '#000' : '#ffffff',
+                  calendarBackground: theme.mode === 'dark' ? '#000' : '#ffffff',
+                  textSectionTitleColor: theme.mode === 'dark' ? '#aaa' : '#2d4150',
+                  dayTextColor: theme.mode === 'dark' ? '#fff' : '#2d4150',
                   todayTextColor: '#00adf5',
+                  selectedDayTextColor: '#ffffff',
+                  selectedDayBackgroundColor: '#00adf5',
+                  monthTextColor: theme.mode === 'dark' ? '#fff' : '#000',
                   arrowColor: '#00adf5',
+                  disabledArrowColor: theme.mode === 'dark' ? '#555' : '#d9e1e8',
+                  textDisabledColor: theme.mode === 'dark' ? '#555' : '#d9e1e8',
+                  dotColor: '#00adf5',
+                  selectedDotColor: '#ffffff',
                 }}
                 style={styles.calendar}
               />
+
             </View>
           </>  
         }

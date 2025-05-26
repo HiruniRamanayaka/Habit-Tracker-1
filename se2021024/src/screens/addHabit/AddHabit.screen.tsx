@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Button, SafeAreaView, TextInput, TouchableOpacity, View } from 'react-native';
 import { ScrollView, Text } from 'react-native-gesture-handler';
 import styles from './AddHabitScree.style';
@@ -8,10 +8,13 @@ import moment from 'moment';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
 import LinearGradient from 'react-native-linear-gradient';
+import { ThemeContext } from '../../common/context/ThemeContext';
+import MessageModal from '../../components/messageModal/MessageModal';
 
 const days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
+    const { theme } = useContext(ThemeContext);
     const addHabit = useHabitStore(state => state.addHabit);
      const todayDate = moment().format('YYYY-MM-DD');
 
@@ -22,6 +25,10 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
     const filter = useHabitStore(state => state.filter);
     const showFilter = useHabitStore(state => state.showFilter);
 
+    //Modal state
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+
     const toggleDay = (day: string) => {
     if (selectedDays.includes(day)) {
       setSelectedDays(prev => prev.filter(d => d !== day));
@@ -30,13 +37,18 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
     }
   };
 
+  const showModal = (message: string) => {
+    setModalMessage(message);
+    setModalVisible(true);
+  };
+
   const handleSubmit = async () => {
     if (!habitName) { 
-      Alert.alert('Please enter a habit name');
+      showModal('Please enter a habit name');
       return;
     }
     if (frequency === 'weekly' && selectedDays.length === 0) {
-      Alert.alert('Please select at least one day for weekly habits');
+      showModal('Please select at least one day for weekly habits');
       return;
     }
 
@@ -49,20 +61,18 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
     };
 
     await addHabit(habitData);
-    Alert.alert('Habit added!');
+    showModal('Habit added!');
     setHabitName('');
     setFrequency('daily');
     setSelectedDays([]);
-
-    // Only call onClose if it's provided
-    if (onClose) {
-      onClose();
-    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+    <LinearGradient 
+      colors={theme.mode === 'dark' ? ['#000', '#000'] : ['#f2f2f2', '#b0a0bd']}
+      style={styles.gradientBackground}
+    >
       {/*show filter dropdown and filtered habits */}
         {showFilter && (
           <View style={{ flex: 1, padding: 16 }}>
@@ -75,22 +85,30 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
 
         {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
         {!showFilter && filter === 'none' && 
-         <>
-          <Text style={styles.heading}>Add New Habits</Text>
-          <View style={styles.form}>
-            <Text style={styles.label}>Habit Name</Text>
+         <View style={[styles.container]}>
+          <Text style={[styles.heading, { color: theme.text }]}>Add New Habits</Text>
+          <View style={[styles.form, { backgroundColor: theme.card }]}>
+            <Text style={[styles.label, { color: theme.label }]}>Habit Name</Text>
             <TextInput
-              style={styles.input}
+              style={[
+                styles.input,
+                {
+                  backgroundColor: theme.inputBackground,
+                  color: theme.text,
+                  borderColor: theme.border,
+                },
+              ]}
               placeholder="Enter habit name"
+              placeholderTextColor={theme.placeholder}
               value={habitName}
               onChangeText={setHabitName}
             />
-            <Text style={styles.label}>Frequency</Text>
-            <View style={styles.pickerContainer}>
+            <Text style={[styles.label, { color: theme.label }]}>Frequency</Text>
+            <View style={[styles.pickerContainer, { backgroundColor: theme.inputBackground, borderColor: theme.border }]}>
                 <Picker
                   selectedValue={frequency}
                   onValueChange={(itemValue) => setFrequency(itemValue)}
-                  style={styles.picker}
+                  style={[styles.picker, { color: theme.text }]}
                 >
                   <Picker.Item label="Daily" value="daily" />
                   <Picker.Item label="Weekly" value="weekly" />
@@ -99,31 +117,56 @@ const AddHabitScreen = ({ onClose }: { onClose?: () => void }) => {
 
             {frequency === 'weekly' && (
                 <>
-                <Text style={styles.label}>Select Days</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Select Days</Text>
                 <View style={styles.daysContainer}>
                     {days_of_week.map((day) => (
                         <TouchableOpacity
                           key={day}
                           style={[
-                            styles.dayButton, 
+                            styles.dayButton,
+                              {
+                                backgroundColor: theme.card,
+                                borderColor: theme.border,
+                              },
                             selectedDays.includes(day) && styles.dayButtonSelected]}
                           onPress={() => toggleDay(day)}
                         >
-                          <Text style={styles.dayText}>{day}</Text>
+                          <Text style={[styles.dayText, { color: theme.text }]}>{day}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
                 </>
             )}
             <TouchableOpacity
-                style={styles.addButton}
+                style={[styles.addButton, { backgroundColor: theme.primary }]}
                 onPress={handleSubmit}
             >
-                <Text style={styles.addButtonText}>Add Habit</Text>
+                <Text style={[styles.addButtonText, { color: theme.buttonText }]}>Add Habit</Text>
             </TouchableOpacity>
           </View>  
-          </>
+          </View>
+          
         }
+        {/* Modal for messages */}
+      <MessageModal
+        visible={modalVisible}
+        message={modalMessage}
+        onClose={() => {
+          setModalVisible(false);
+          if (modalMessage === 'Habit added!') {
+            if (onClose) {
+              onClose(); // Close the input modal if habit is added successfully
+            }
+          }
+        }}
+        theme={{
+          background: theme.background,
+          text: theme.text,
+          modalBackground: theme.inputBackground,
+          buttonBackground: theme.fab,
+          buttonText: theme.text,
+        }}
+      />
     </LinearGradient>
     </SafeAreaView>
   );

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import moment from 'moment';
 import styles from './DatePicker.style';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 type DatePickerProps = {
   onDateSelect: (date: string) => void;
@@ -10,6 +11,7 @@ type DatePickerProps = {
 const DatePicker: React.FC<DatePickerProps> = ({ onDateSelect }) => {
   const [dates, setDates] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const tempDates = [];
@@ -23,7 +25,15 @@ const DatePicker: React.FC<DatePickerProps> = ({ onDateSelect }) => {
   // render each date box in the horizontal list 
   const renderItem = ({ item }: { item: string }) => {
     const isToday = item === moment().format('YYYY-MM-DD');              // True if the date is today
-    const isSelected = item === selectedDate;              // True if the date is selected (if user clicked)
+    const isSelected = item === selectedDate;   
+    
+    const backgroundColor = isToday
+      ? theme.card
+      : isSelected
+      ? '#'
+      : theme.background;
+
+    const textColor = isToday || isSelected ? 'white' : theme.text;// True if the date is selected (if user clicked)
 
     // date box
     return (
@@ -33,7 +43,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ onDateSelect }) => {
           onDateSelect(item);
         }}
         style={[
-          styles.dateButton,
+          styles.dateButton, { backgroundColor },
           isToday && styles.today,
           isSelected && !isToday && styles.selected,
         ]}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
@@ -8,8 +8,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './WeeklyProgressScreen.style'
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 const WeeklyProgressScreen = () => {
+  const { theme } = useContext(ThemeContext);
   const habits = useHabitStore(state => state.habits);
   const completed = useHabitStore(state => state.completed);
   const filter = useHabitStore(state => state.filter);
@@ -84,7 +86,10 @@ const WeeklyProgressScreen = () => {
 
   return (
     <SafeAreaView style={styles.screen}>
-    <LinearGradient colors={['#f2f2f2', '#b0a0bd']} style={styles.gradientBackground}>
+    <LinearGradient 
+      colors={theme.mode === 'dark' ? ['#000', '#000'] : ['#f2f2f2', '#b0a0bd']}
+      style={styles.gradientBackground}
+    >
       {/*show filter dropdown and filtered habits */}
         {showFilter && (
           <View style={{ flex: 1, padding: 16 }}>
@@ -97,9 +102,9 @@ const WeeklyProgressScreen = () => {
 
         {/* Default habit list (only if filter is "none" and dropdown is hidden) */}
         {!showFilter && filter === 'none' && 
-          <>
+          <View style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={styles.container}>
-              <Text style={styles.title}>Weekly Progress</Text>
+              <Text style={[styles.title, { color: theme.text }]}>Weekly Progress</Text>
 
               <BarChart
                 data={chartData}
@@ -110,14 +115,14 @@ const WeeklyProgressScreen = () => {
                 yAxisSuffix="%"
                 yAxisLabel=""
                 chartConfig={{
-                  backgroundColor: '#4f2586',
-                  backgroundGradientFrom: '#4f2586',
-                  backgroundGradientTo: '#4f2586',
+                  backgroundColor: theme.primary,
+                  backgroundGradientFrom: theme.primary,
+                  backgroundGradientTo: theme.primary,
                   decimalPlaces: 0,
-                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                  labelColor: () => '#fff',
+                  color: (opacity = 1) => theme.buttonText,
+                  labelColor: () => theme.buttonText,
                   propsForBackgroundLines: {
-                    stroke: '#222222',
+                    stroke: theme.unfilledBar,
                   },
                   barPercentage: 0.5,
                 }}
@@ -132,15 +137,15 @@ const WeeklyProgressScreen = () => {
               
               {/* Optional: keep detailed text below the chart */}
               {weeklyStat.map(stat => (
-                <View key={stat.fullDate} style={styles.dayBox}>
-                  <Text style={styles.dayText}>{stat.fullDate}</Text>
-                  <Text style={styles.progressText}>
+                <View key={stat.fullDate} style={[styles.dayBox, { backgroundColor: theme.card }]}>
+                  <Text style={[styles.dayText, { color: theme.text }]}>{stat.fullDate}</Text>
+                  <Text style={[styles.progressText, { color: theme.textSecondary }]}>
                     {stat.completedCount} / {stat.total} completed ({stat.percent}%)
                   </Text>
                 </View>
               ))}
             </ScrollView>
-          </>  
+          </View>  
         }
     </LinearGradient>
     </SafeAreaView>

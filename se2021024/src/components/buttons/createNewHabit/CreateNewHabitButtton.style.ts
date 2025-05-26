@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   },
   fabText: {
     fontSize: 32,
-    color: COLORS.white,
   },
   modalBackdrop: {
     flex: 1,

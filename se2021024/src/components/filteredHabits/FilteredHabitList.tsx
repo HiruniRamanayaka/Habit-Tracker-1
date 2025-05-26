@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
@@ -8,8 +8,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../constants/Theme';
 import styles from './FilteredHabit.style';
 import { FlatList } from 'react-native-gesture-handler';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 const FilteredHabitList = () => {
+  const { theme } = useContext(ThemeContext);
   const { habits, completed, filter } = useHabitStore();
   const [visibleCalendarHabitId, setVisibleCalendarHabitId] = useState<string | null>(null);
 
@@ -49,8 +51,8 @@ const FilteredHabitList = () => {
       if (completed[date].includes(habitId)) {
         markedDates[date] = {
           marked: true,
-          dotColor: COLORS.lightPurple,
-          selectedColor: COLORS.primaryBtn,
+          dotColor: theme.primary,
+          selectedColor: theme.primary,
           selected: true,
         };
       }
@@ -59,7 +61,7 @@ const FilteredHabitList = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       {filteredHabits.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Image 
@@ -67,7 +69,7 @@ const FilteredHabitList = () => {
             style={styles.emptyImage}
             resizeMode="contain"
           />
-          <Text style={styles.emptyText}>No habits to show</Text>
+          <Text style={[styles.emptyText, { color: theme.textSecondary }]}>No habits to show</Text>
         </View>
       ) : (
         <FlatList
@@ -75,21 +77,21 @@ const FilteredHabitList = () => {
           keyExtractor={(habit) => habit.id}
           contentContainerStyle={{ paddingBottom: 100 }}
           renderItem={({item}) => (
-          <View key={item.id} style={styles.filteredHabits}>
+          <View key={item.id} style={[styles.filteredHabits, { backgroundColor: theme.card }]}>
 
             {/* show all habits  */}
             {filter === 'all' && (
               <View style={styles.allHabits} >
-                <Text style={styles.habitName}>{item.name}</Text>
-                <Text style={styles.habitDetail}>Frequency: {item.frequency}</Text>
+                <Text style={[styles.habitName, { color: theme.text }]}>{item.name}</Text>
+                <Text style={[styles.habitDetail, {color: theme.textSecondary}]}>Frequency: {item.frequency}</Text>
                 {item.frequency === 'weekly' && (
-                  <Text style={styles.habitDetail}>Days: {item.days.join(', ')}</Text>
+                  <Text style={[styles.habitDetail, {color: theme.textSecondary}]}>Days: {item.days.join(', ')}</Text>
                 )}
                 <View style={styles.habitRow}>
-                  <Text style={styles.habitDetail}>
+                  <Text style={[styles.habitDetail, {color: theme.textSecondary}]}>
                     Status Today:{' '}
                   </Text>
-                  <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? 'green' : 'red',}]}>
+                  <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? theme.success : theme.error,}]}>
                     {completed[todayDate]?.includes(item.id) ? 'Completed' : 'Not Completed'}
                   </Text>
                 </View>
@@ -99,8 +101,8 @@ const FilteredHabitList = () => {
             {/* show today habits */}
             {filter === 'today' && (
               <View style={styles.todayHabits}>
-                <Text style={styles.habitName}>{item.name}</Text>
-                <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? 'green' : 'red',}]}>
+                <Text style={[styles.habitName, { color: theme.text }]}>{item.name}</Text>
+                <Text style={[styles.habitStatus, {color: completed[todayDate]?.includes(item.id) ? theme.success : theme.error,}]}>
                     {completed[todayDate]?.includes(item.id) ? 'Completed' : 'Not Completed'}
                 </Text>
               </View>
@@ -110,7 +112,7 @@ const FilteredHabitList = () => {
             {filter === 'completed' && (
             <View style={styles.completedHabits}>
               <View style={styles.completedHeader}>
-              <Text style={styles.habitName}>{item.name}</Text>
+              <Text style={[styles.habitName, { color: theme.text }]}>{item.name}</Text>
               {/* <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
                 Completed Dates:
               </Text> */}
@@ -123,13 +125,22 @@ const FilteredHabitList = () => {
                     }
                   }}
                 >
-                  <Icon name="calendar" size={24} color="#333" />
+                  <Icon name="calendar" size={24} color={theme.text} />
               </TouchableOpacity>
               </View>
 
                 {visibleCalendarHabitId === item.id && (
                   <View style={styles.calendarWrapper}>
-                    <Calendar markedDates={getMarkedDatesForHabit(item.id)} />
+                    <Calendar 
+                      theme={{
+                            calendarBackground: theme.card,
+                            dayTextColor: theme.text,
+                            monthTextColor: theme.text,
+                            arrowColor: theme.primary,
+                            todayTextColor: theme.primary,
+                          }}
+                      markedDates={getMarkedDatesForHabit(item.id)} 
+                    />
                   </View>
                 )}
               {/* <Calendar markedDates={markedDates} /> */}

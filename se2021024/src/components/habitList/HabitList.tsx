@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlatList, Image, Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import styles from './HabitList.style';
@@ -6,8 +6,10 @@ import DatePicker from '../datePicker/DatePicker';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import DeleteHabitButton from '../buttons/deleteHabit/DeleteHabit';
+import { ThemeContext } from '../../common/context/ThemeContext';
 
 const HabitList = () => {
+    const { theme } = useContext(ThemeContext);
     const habits = useHabitStore(state => state.habits);
     const completed = useHabitStore(state => state.completed);
     const toggleCompleted = useHabitStore(state => state.toggleCompleted);
@@ -56,7 +58,7 @@ const HabitList = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <DatePicker onDateSelect={setSelectedDate} />
 
       {/* Display selected day habits */}
@@ -64,25 +66,34 @@ const HabitList = () => {
       {filteredHabits.length === 0 ? (
         <View style={styles.noHabitsContainer}>
           <Image source={require('../../assests/no-habit.png')} style={styles.noHabitsImage}/>
-          <Text style={styles.noHabitsText}>No habits for this day</Text>
+          <Text style={[styles.noHabitsText, { color: theme.text }]}>No habits for this day</Text>
         </View>
       ) : (
         <FlatList
           data={filteredHabits}
           keyExtractor={(habit) => habit.id}
           renderItem={({ item }) => (
-            <Pressable                //
+            <Pressable                
               onPress={() =>
                 setSelectedHabitId(
                   item.id === selectedHabitId ? null : item.id,
                 )
               }
             >                     
-              <View style={styles.habitCard}>
-                <Text style={styles.habitName}>{item.name}</Text>
+              <View style={[styles.habitCard, { backgroundColor: theme.card }]}>
+                <Text style={[styles.habitName, { color: theme.text }]}>{item.name}</Text>
                 <TouchableOpacity 
                   onPress={() => handleToggleComplete(item.id)}
-                  style = {[styles.checkbox,  isCompletedForDate(item.id) && styles.checkboxCompleted]}
+                  style={[styles.checkbox,
+                    {
+                      backgroundColor: isCompletedForDate(item.id)
+                        ? theme.checkboxChecked
+                        : 'transparent',
+                      borderColor: isCompletedForDate(item.id)
+                        ? theme.checkboxChecked
+                        : '#888888',
+                      borderWidth: 2,
+                    },]}
                 >
                   {isCompletedForDate(item.id) && <Text style={styles.checkmark}>✓</Text>}
                 </TouchableOpacity>

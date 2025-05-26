@@ -6,6 +6,7 @@ import SplashScreen from './src/screens/splashScreen/Splash.screen';
 import AppNavigation from './src/navigation/AppNavigation';
 import { UserContext, UserType } from './src/common/context/userContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeProvider } from './src/common/context/ThemeContext';
 
 const App = () => {
   const [user, setUser] = useState<UserType>(null);
@@ -49,11 +50,13 @@ const App = () => {
   }
 
   return (
+    <ThemeProvider>
     <UserContext.Provider value={{user, setUser}}>
       <NavigationContainer>
         <AppNavigation initialRoute={initialRoute}/>
       </NavigationContainer>
     </UserContext.Provider>
+    </ThemeProvider>
   );
 };
 
