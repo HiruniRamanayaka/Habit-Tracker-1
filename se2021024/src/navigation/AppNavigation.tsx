@@ -6,7 +6,7 @@ import SignUpScreen from '../screens/signUp/SignUp.screen';
 import HomeScreen from '../screens/home/Home.screen';
 import { UserContext, UserType } from '../common/context/userContext';
 import CustomHeader from '../components/customHeader/CustomHeader';
-import AnotherScreen from '../screens/AnotherScreen';
+import SettingsScreen from '../screens/settings/Settings';
 import CompletedHabitsScreen from '../screens/completedHabits/CompletedHabits.screen';
 import WeeklyProgressScreen from '../screens/weeklyProgress/WeeklyProgress.screen';
 import CustomDrawer from '../components/customDrawer/CustomDrawer';
@@ -37,10 +37,9 @@ const DrawerNavigator = () => {
       }}
     >
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
-      <Drawer.Screen name="Another" component={AnotherScreen} />
-      <Drawer.Screen name="CompletedHabits" component={CompletedHabitsScreen} />
+      <Drawer.Screen name="Completed Habits" component={CompletedHabitsScreen} />
       <Drawer.Screen name="Weekly Progress" component={WeeklyProgressScreen} />
-      {/* Add more screens here */}
+      <Drawer.Screen name="Settings" component={SettingsScreen} />
     </Drawer.Navigator>
   );
 };

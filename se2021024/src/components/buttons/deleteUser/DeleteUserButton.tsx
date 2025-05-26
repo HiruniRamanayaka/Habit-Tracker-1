@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import { UserContext } from '../../../common/context/userContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,9 +16,20 @@ const DeleteUserButton = ({ navigation }: any) => {
 
   return (
     <View>
-      <Button title="Delete Account" onPress={handleDelete} />
+      <TouchableOpacity onPress={handleDelete}>
+        <Text style={styles.deleteText}>Delete Account</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default DeleteUserButton;
+
+const styles = StyleSheet.create({
+  deleteText: {
+    color: 'red',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+  },
+});
