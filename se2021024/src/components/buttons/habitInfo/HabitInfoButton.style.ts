@@ -13,7 +13,6 @@ import { StyleSheet } from 'react-native';
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },
-  
 });
 
 export default styles;

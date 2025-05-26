@@ -8,6 +8,7 @@ import LottieView from 'lottie-react-native';
 import DeleteHabitButton from '../buttons/deleteHabit/DeleteHabit';
 import EditTaskButton from '../buttons/editHabit/EditHabitButton';
 import { ThemeContext } from '../../common/context/ThemeContext';
+import HabitInfoButton from '../buttons/habitInfo/HabitInfoButton';
 
 const HabitList = () => {
     const { theme } = useContext(ThemeContext);
@@ -105,6 +106,7 @@ const HabitList = () => {
                 <View style={styles.buttonsRow}>
                   <DeleteHabitButton habitId={item.id} />
                   <EditTaskButton habit={item}/>
+                  <HabitInfoButton habit={item} />
                 </View>
               )}
             </Pressable>

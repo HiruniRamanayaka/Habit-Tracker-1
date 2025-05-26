@@ -92,7 +92,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     elevation: 5,
   },
   saveButtonText: {
-    color: theme.text,
+    color: '#fff',
     fontWeight: '700',
     fontSize: 18,
     letterSpacing: 0.5,
