@@ -80,6 +80,7 @@ const HabitInput = ({ onClose }: { onClose: () => void }) => {
           value={habitName}
           onChangeText={setHabitName}
         />
+        
         <Text style={[styles.label, { color: theme.text }]}>Frequency</Text>
         <View style={[
           styles.pickerContainer,

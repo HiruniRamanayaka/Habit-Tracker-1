@@ -15,6 +15,7 @@ type HabitState = {
   addHabit: (habit: Habit) => void;
   deleteHabit: (id: string) => void;
   clearHabits: () => void;
+  updateHabit: (updatedHabit: Habit) => void;
   toggleCompleted: (habitId: string, date: string) => void;
   setFilter: (filter: FilterType) => void;
   toggleShowFilter: () => void;
@@ -38,6 +39,14 @@ export const useHabitStore = create<HabitState>()(
       deleteHabit: (id: string) =>
         set((state) => ({
           habits: state.habits.filter(habit => habit.id !== id),
+        })),
+      
+      // updating a habit
+      updateHabit: (updatedHabit: Habit) =>
+        set((state) => ({
+          habits: state.habits.map((habit) =>
+            habit.id === updatedHabit.id ? updatedHabit : habit
+          ),
         })),
       
       // toggling the completion status of a habit

@@ -30,6 +30,7 @@ export type Theme = {
   modalOverlay: string;
   closeButtonBg: string;
   closeButtonText: string;
+  action: string;
 };
 
 const lightTheme: Theme = {
@@ -63,6 +64,7 @@ const lightTheme: Theme = {
   modalOverlay: 'rgba(0,0,0,0.4)',
   closeButtonBg: '#eee',
   closeButtonText: '#333',
+  action: '#4A4A4A', 
 };
 
 const darkTheme: Theme = {
@@ -98,6 +100,7 @@ const darkTheme: Theme = {
   modalOverlay: 'rgba(255,255,255,0.1)',
   closeButtonBg: '#333',
   closeButtonText: '#fff',
+  action: '#B0B0B0',
 };
 
 type ThemeContextType = {

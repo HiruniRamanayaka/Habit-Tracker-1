@@ -6,6 +6,7 @@ import DatePicker from '../datePicker/DatePicker';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import DeleteHabitButton from '../buttons/deleteHabit/DeleteHabit';
+import EditTaskButton from '../buttons/editHabit/EditHabitButton';
 import { ThemeContext } from '../../common/context/ThemeContext';
 
 const HabitList = () => {
@@ -103,7 +104,7 @@ const HabitList = () => {
               {selectedHabitId === item.id &&  (
                 <View style={styles.buttonsRow}>
                   <DeleteHabitButton habitId={item.id} />
-                  {/* <EditTaskButton index={index} /> */}
+                  <EditTaskButton habit={item}/>
                 </View>
               )}
             </Pressable>

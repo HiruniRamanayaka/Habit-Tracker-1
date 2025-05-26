@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const styles =  StyleSheet.create({
+ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#ff4d4d',
     padding: 10,
@@ -35,38 +35,6 @@ const styles =  StyleSheet.create({
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 5 },
     elevation: 10,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  deleteButton: {
-    backgroundColor: '#ff4d4d',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    flex: 1,
-    marginRight: 10,
-  },
-  cancelButton: {
-    backgroundColor: '#ccc',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    flex: 1,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-    textAlign: 'center',
   },
 });
 
