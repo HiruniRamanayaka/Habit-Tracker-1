@@ -18,7 +18,11 @@ const ProgressScreen = () => {
   const showFilter = useHabitStore(state => state.showFilter);
 
   const today = moment().format('YYYY-MM-DD');
-  const completedToday = completed[today] || [];
+
+  const completedToday = (completed[today] || []).filter(id =>
+    habits.some(habit => habit.id === id)
+  );
+
 
   const habitsToday = habits.filter(habit => {
     if (habit.frequency === 'daily') return true;

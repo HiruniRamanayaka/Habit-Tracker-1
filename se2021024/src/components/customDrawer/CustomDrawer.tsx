@@ -26,7 +26,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           resizeMode="contain"
         />
         <Text style={[styles.date, { color: theme.text }]}>{currentDate}</Text>
-        <Text style={[styles.welcome, { color: theme.text }]}>Welcome, {user?.userName || 'User'}!</Text>
+        <Text style={[styles.welcome, { color: theme.text }]}>Welcome, {user?.userName || 'User'}</Text>
       </View>
 
       <View style={styles.drawerList}>
@@ -64,20 +64,17 @@ const localStyles = StyleSheet.create({
     backgroundColor: '#CCCCCC',
     alignItems: 'center',
   },
-  themeSwitchContainer: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginHorizontal: 20,
-  marginVertical: 10,
-  padding: 10,
-  // borderRadius: 8,
-  // backgroundColor: '#CCCCCC',
+    themeSwitchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 10,
 },
-
-themeSwitchLabel: {
-  fontSize: 18,
-},
+  themeSwitchLabel: {
+    fontSize: 18,
+  },
 
 });
 

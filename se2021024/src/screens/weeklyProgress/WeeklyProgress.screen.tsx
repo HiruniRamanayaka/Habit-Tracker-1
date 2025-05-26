@@ -63,7 +63,10 @@ const WeeklyProgressScreen = () => {
     });   
 
     const total = habitsToday.length;
-    const completedCount = completedToday.length;
+    const completedCount = completedToday.filter(id =>
+      habits.some(habit => habit.id === id)
+    ).length;
+
     const percent = total > 0 ? Math.round((completedCount / total) * 100) : 0;
 
     return {
