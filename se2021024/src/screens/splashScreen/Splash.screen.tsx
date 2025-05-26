@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator, Image } from 'react-native';
+import { View, Text, ActivityIndicator, Image, StyleSheet } from 'react-native';
+import styles from './SplashScrren.style';
 
 const SplashScreen = ({ onReady }: { onReady: () => void }) => {
   useEffect(() => {
@@ -13,13 +14,18 @@ const SplashScreen = ({ onReady }: { onReady: () => void }) => {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Image
       source={require('../../assests/first.png')}
-      // style={styles.background}
+      style={styles.image}
       resizeMode="cover"
       />
-      <ActivityIndicator size="large" />
-      <Text>Loading...</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title1} >Build Good Habits, </Text>
+        <Text style={styles.title2}>Break Bad Ones!</Text>
+        <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
+        <Text style={styles.loadingText} >Loading...</Text>
+      </View>
     </View>
   );
 };
 
 export default SplashScreen;
+
