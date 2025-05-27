@@ -118,29 +118,32 @@ const HabitList = () => {
 
       {/* celebration modal */}
       <Modal transparent visible={showCelebration} animationType='fade'>
-        <View style={styles.celebrationModal}>
-          <View style={styles.modal}>
+        <View style={[styles.celebrationModal]}>
+          <View style={[
+              styles.modal,
+              { backgroundColor: theme.card, borderColor: theme.text, borderWidth: 1 },
+            ]}>
             <LottieView
               source={require('../../assests/celebration.json')}
               autoPlay
               loop={false}
               style={styles.lottieView}
             />
-            <Text style={styles.celebrationText}>Well Done!</Text>
+            <Text style={[styles.celebrationText, { color: theme.text }]}>Well Done!</Text>
 
             {/* Close button */}
             <TouchableOpacity
               onPress={() => setShowCelebration(false)}
               style={{
                 marginTop: 20,
-                backgroundColor: '#dedede',
+                backgroundColor: theme.fab || '#dedede',
                 paddingHorizontal: 10,
                 paddingVertical: 5,
                 borderRadius: 10,
                 elevation: 5,
               }}
             >
-              <Text style={styles.closeText}>Close</Text>
+              <Text style={[styles.closeText, { color: theme.text }]}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -61,7 +61,7 @@ const FilteredHabitList = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {filteredHabits.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Image 

@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   filteredHabits: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,
