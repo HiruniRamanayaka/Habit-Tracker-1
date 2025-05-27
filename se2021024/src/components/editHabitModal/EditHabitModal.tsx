@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Modal, View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Modal, View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { ThemeContext } from '../../common/context/ThemeContext';
 import { useHabitStore } from '../../store/tasks/useHabitStore';

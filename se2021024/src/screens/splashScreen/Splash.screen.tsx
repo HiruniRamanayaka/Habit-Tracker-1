@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, Image, StyleSheet } from 'react-native';
-import styles from './SplashScrren.style';
+import styles from './SplashScreen.style';
 
 const SplashScreen = ({ onReady }: { onReady: () => void }) => {
   useEffect(() => {

@@ -2,12 +2,9 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home/Home.screen';
-import AnotherScreen from '../screens/AnotherScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
-import HabitInput from '../components/habitInput/HabitInput';
 import { COLORS } from '../constants/Theme';
 import ProgressScreen from '../screens/progress/Progress.screen';
-import HabitCalendar from '../screens/habitCalendar/HabitCalendar.screen';
 import HabitCalendarScreen from '../screens/habitCalendar/HabitCalendar.screen';
 import AddHabitScreen from '../screens/addHabit/AddHabit.screen';
 import { ThemeContext } from '../common/context/ThemeContext';
@@ -35,11 +32,11 @@ const BottomTabNavigator = () => {
           backgroundColor: theme.tabBar,
         },
         tabBarLabelStyle: {
-          marginTop: 4,      // space between icon and label
+          marginTop: 4,      
           fontSize: 12,
         },
         tabBarIconStyle: {
-          marginTop: 6,      // moves icon down
+          marginTop: 6,      
         },
         tabBarActiveTintColor: isDarkMode ? '#ac81ca' : COLORS.background,
         tabBarInactiveTintColor: isDarkMode ? '#aaa' : COLORS.darkGray,

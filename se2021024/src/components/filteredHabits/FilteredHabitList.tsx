@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Habit } from '../../types';
 import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { COLORS } from '../../constants/Theme';
 import styles from './FilteredHabit.style';
 import { FlatList } from 'react-native-gesture-handler';
 import { ThemeContext } from '../../common/context/ThemeContext';

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { UserContext } from '../../../common/context/userContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

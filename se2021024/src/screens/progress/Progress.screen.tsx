@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
 import * as Progress from 'react-native-progress';
-import { COLORS } from '../../constants/Theme';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './ProgressScreen.style';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';

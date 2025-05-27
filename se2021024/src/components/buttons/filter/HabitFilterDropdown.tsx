@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useHabitStore } from '../../../store/tasks/useHabitStore';
 import Icon from 'react-native-vector-icons/FontAwesome';

@@ -22,7 +22,7 @@ StyleSheet.create({
     alignItems: 'center',
   },
   containerStyle: {
-    backgroundColor: theme.card,       // Dropdown list container
+    backgroundColor: theme.card,      
     borderRadius: 12,
   },
   placeholderStyle: {
@@ -35,7 +35,7 @@ StyleSheet.create({
   },
   itemTextStyle: {
     fontSize: 14,
-    color: theme.text,                // Text color for each item
+    color: theme.text,               
   },
   iconStyle: {
     width: 20,

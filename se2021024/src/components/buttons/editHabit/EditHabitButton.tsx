@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity} from 'react-native';
 import EditHabitModal from '../../editHabitModal/EditHabitModal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from '../../../common/context/ThemeContext';

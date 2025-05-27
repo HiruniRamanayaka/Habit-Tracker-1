@@ -1,4 +1,3 @@
-// common/context/ThemeContext.tsx
 import React, { createContext, useState, ReactNode } from 'react';
 
 export type Theme = {
@@ -48,14 +47,12 @@ const lightTheme: Theme = {
   border: '#cccccc',
   inputBackground: '#ffffff',
   placeholder: '#999999',
-  //checkboxChecked: '#8e44ad',
   primary: '#8e44ad',
   buttonText: '#ffffff',
   label: '#000000',
   textSecondary: '#555555',
   shadow: '#000000',
   unfilledBar: '#e0e0e0',
-  // unfilledBar: '#cccccc',
   selectedText: '#ffffff',
   disabled: '#aaaaaa',
   success: '#4CAF50',   // Green
@@ -78,7 +75,6 @@ const darkTheme: Theme = {
   tabBar: '#1a1a1a',
   accent: '#81c784',
   checkbox: '#000000',
-  //checkboxChecked: '#81c784',
   border: '#444444',
   inputBackground: '#2c2c2c',
   placeholder: '#aaaaaa',
@@ -89,14 +85,11 @@ const darkTheme: Theme = {
   textSecondary: '#cccccc',
   shadow: '#000000',
   unfilledBar: '#444444',
-  // unfilledBar: '#444444',
   selectedText: '#000000',
   disabled: '#888888',
   success: '#81C784',   // Light green
   error: '#EF5350',     // Light red
   fab: '#4f2586',
-  // text: '#ffffff',
-  // background: '#121212',
   modalOverlay: 'rgba(255,255,255,0.1)',
   closeButtonBg: '#333',
   closeButtonText: '#fff',

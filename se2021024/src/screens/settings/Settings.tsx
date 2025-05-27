@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import DeleteUserButton from '../../components/buttons/deleteUser/DeleteUserButton';
 import { ThemeContext } from '../../common/context/ThemeContext';
 import styles from './Settings.style';

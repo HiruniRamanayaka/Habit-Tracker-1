@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';

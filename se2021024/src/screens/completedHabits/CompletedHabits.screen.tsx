@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, Pressable, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, SafeAreaView, Pressable, Image } from 'react-native';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import DatePicker from '../../components/datePicker/DatePicker';
 import moment from 'moment';

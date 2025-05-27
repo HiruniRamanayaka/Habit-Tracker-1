@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Modal, Text, TouchableOpacity, View} from 'react-native';
+import { Modal, Text, TouchableOpacity, View} from 'react-native';
 import HabitInput from '../../habitInput/HabitInput';
 import styles from './CreateNewHabitButtton.style';
 import { ThemeContext } from '../../../common/context/ThemeContext';

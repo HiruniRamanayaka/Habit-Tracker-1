@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import moment from 'moment';
 import styles from './DatePicker.style';
 import { ThemeContext } from '../../common/context/ThemeContext';

@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, Button, SafeAreaView } from 'react-native';
+import React, { useContext } from 'react';
+import { View, SafeAreaView } from 'react-native';
 import { UserContext } from '../../common/context/userContext';
-import LogoutButton from '../../components/buttons/logout/LogoutButton';
-import DeleteUserButton from '../../components/buttons/deleteUser/DeleteUserButton';
 import styles from './HomeScreen.style';
 import LinearGradient from 'react-native-linear-gradient';
 import CreateNewHabitButton from '../../components/buttons/createNewHabit/CreateNewHabitButton';
-import { ScrollView } from 'react-native-gesture-handler';
 import HabitList from '../../components/habitList/HabitList';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import FilteredHabitList from '../../components/filteredHabits/FilteredHabitList';
-import CustomHeader from '../../components/customHeader/CustomHeader';
 import HabitFilterDropdown from '../../components/buttons/filter/HabitFilterDropdown';
 import { ThemeContext } from '../../common/context/ThemeContext';
 

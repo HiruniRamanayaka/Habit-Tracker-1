@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/Theme';
-import LottieView from 'lottie-react-native';
 
 const styles = StyleSheet.create({
  container: {
@@ -51,16 +50,12 @@ const styles = StyleSheet.create({
     borderColor: '#888',
     marginRight: 12,
   },
-  // checkboxCompleted: {
-  //   backgroundColor: '#4ade80',
-  //   borderColor: '#4ade80',
-  // },
   checkmark: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    lineHeight: 22, // to center inside 24x24 checkbox
+    lineHeight: 22, 
   },
   celebrationModal: {
     flex: 1,

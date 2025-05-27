@@ -5,7 +5,6 @@ import styles from './DeleteHabitButton.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from '../../../common/context/ThemeContext';
 
-/* Function of delete button */
 const DeleteHabit = ({ habitId }: { habitId: string }) => {
   const { theme } = useContext(ThemeContext);
   const deleteHabit = useHabitStore(state => state.deleteHabit);

@@ -60,6 +60,3 @@ const CustomHeader = () => {
 };
 
 export default CustomHeader;
-
-//npm install react-native-calendars - calendar
-//npm install moment   - to generate date strings

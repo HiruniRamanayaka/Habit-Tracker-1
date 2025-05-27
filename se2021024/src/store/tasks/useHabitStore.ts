@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Habit} from '../../types/index';
-// Removed incorrect import of get from TurboModuleRegistry
 
 type FilterType = 'none' | 'all' | 'today' | 'completed';
 
@@ -101,6 +100,3 @@ export const useHabitStore = create<HabitState>()(
   )
 );
 
-
-// npm install @react-native-picker/picker
-// npm install zustand

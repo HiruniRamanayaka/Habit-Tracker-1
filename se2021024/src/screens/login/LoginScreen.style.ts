@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     shadowColor: COLORS.white,
     shadowOffset: { width: 0, height: 4 }, // X & Y offset
-    shadowOpacity: 0.3, // Shadow transparency
+    shadowOpacity: 0.3, 
   },
   inputTitles: {
     alignItems: 'center',

@@ -136,6 +136,3 @@ const LogInScreen = ({navigation}:any) => {
 };
 
 export default LogInScreen;
-
-// npm i react-native-check-box --save
-// npm i --save-dev @types/react-native-check-box

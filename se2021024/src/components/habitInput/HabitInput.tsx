@@ -1,12 +1,10 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useContext, useState } from 'react';
-import { Alert, Button, SafeAreaView, TextInput, TouchableOpacity, View } from 'react-native';
-import { ScrollView, Text } from 'react-native-gesture-handler';
+import { SafeAreaView, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text } from 'react-native-gesture-handler';
 import styles from './HabitInput.style';
 import { useHabitStore } from '../../store/tasks/useHabitStore';
 import moment from 'moment';
-import HabitFilterDropdown from '../buttons/filter/HabitFilterDropdown';
-import FilteredHabitList from '../filteredHabits/FilteredHabitList';
 import { ThemeContext } from '../../common/context/ThemeContext';
 import MessageModal from '../messageModal/MessageModal';
 

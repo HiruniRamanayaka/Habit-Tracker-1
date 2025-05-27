@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { UserContext } from '../../../common/context/userContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useHabitStore } from '../../../store/tasks/useHabitStore';
@@ -10,9 +10,6 @@ const LogoutButton = ({ navigation }: any) => {
   const { user, setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
-    //await AsyncStorage.removeItem('user');  <--- Delete account
-    // await AsyncStorage.setItem('actionType', 'logout'); // Store action
-    // await AsyncStorage.setItem('isLoggedIn', 'false');
     useHabitStore.setState({
       habits: [],
       completed: {},
